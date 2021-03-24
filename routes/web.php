@@ -22,6 +22,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/reservation/returnBook', [ReservationsController::class, 'returnBook']);
-Route::apiResource('reservation', ReservationsController::class);
+Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBook'])->name('returnBook');
+Route::resource('reservations', ReservationsController::class);
 
