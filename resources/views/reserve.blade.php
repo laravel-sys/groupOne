@@ -9,9 +9,13 @@
         <form class="col-lg-8" method="POST" action="{{route('reservations.store')}}">
  @csrf
  <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
- <lable for="bookID"> Book id</lable>
- <input name="book_id" />
+ <br>
+ <lable for="bookID"> Book id</lable> <br>
+
+ <input name="book_id" /> <br>
+
  <lable for="startdate"> reserve at</lable>
+ <br>
  <input 
     name="startdate" 
     id="date" 
@@ -19,7 +23,9 @@
     style="width: 100%; display: inline;" 
     onchange="invoicedue(event);" 
     type="date">
- <lable for="EndDate"> return at</lable>
+    <br>
+<lable for="EndDate"> return at</lable>
+<br>
  <input 
     name="enddate" 
     id="date" 
@@ -28,6 +34,7 @@
     onchange="invoicedue(event);" 
     type="date">
  
+    <br>
     <input type="submit" class="btn btn-danger form-group mt-3" value="Reserve Book"/>
     @if ($errors->any())
  <div class="alert alert-danger">

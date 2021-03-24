@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" >
     <div class="row justify-content-center">
         <div class="col-md-12">
         <div class="card mt-3">
         <h1>Reservations</h1>
-        <table>
- <tr style="border-bottom: 1px solid black;" class="row">
+        <table >
+ <tr style="border-bottom: 1px solid black;" class="row ">
  <th class="col-md-1"> User</th>
-
  <th class="col-md-1"> Book</th>
  <th class="col-md-2"> start date </th>
  <th class="col-md-2"> end date </th>
  <th class="col-md-2"> status </th>
  <th class="col-md-2"> comment </th>
+ <th class="col-md-2"> submit </th>
 
  </tr>
  @foreach($reservedBooks as $reservation)
 
  
- <form class="col-lg-8" method="POST" action="/reservations/{{$reservation->id}}">
+ <form method="POST" action="/reservations/{{$reservation->id}}">
  @csrf
  @method('PUT')
 
