@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationsController extends Controller
 {
+    public function __construct()
+    {
+    $this->middleware('auth',['expect'=>['reserve', ]]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,16 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        if($user->name=="admin"){
+            $reservedBooks=Reservation::all();
+            return view('reservedbooks',['reservedBooks'=>$reservedBooks]);
+        }
+        else{
+            return view('reserve',[$user]);
+        }
+            
+        
     }
 
     /**
@@ -35,7 +49,20 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            ['book_id'=>'required',
+            'startdate'=>'required',
+            'enddate'=>'required',]);
+        $reservation =new Reservation();
+        $reservation->book_id = request('book_id');
+        $reservation->startDate = request('startdate');
+        $reservation->endDate = request('enddate');
+        $reservation->user_id = request('user_id');
+        $reservation->comment = "";
+        $reservation->status = "requested";
+
+        $reservation->save();
+        return redirect('reservations');
     }
 
     /**
@@ -69,7 +96,21 @@ class ReservationsController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        //
+        $request->validate(
+            ['book_id'=>'required',
+            'startdate'=>'required|date',
+            'enddate'=>'required|date|after:startdate',
+            'status'=>'required'
+            ]);
+        $reservation->book_id = request('book_id');
+        $reservation->startDate = request('startdate');
+        $reservation->endDate = request('enddate');
+        $reservation->user_id = request('user_id');
+        $reservation->comment = request('comment');
+        $reservation->status = request('status');
+
+        $reservation->save();
+        return redirect('reservations');
     }
 
     /**
