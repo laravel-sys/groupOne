@@ -61,7 +61,13 @@
                             <a class="nav-link" href="{{route('books.index')}}">Show Books</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{route('categories.index')}}">Show Categories</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{route('books.create')}}">Add Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('categories.create')}}">Add Category</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

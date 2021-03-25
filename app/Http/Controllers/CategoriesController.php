@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     {
         //
         $categories = Category::get();
-        return view('index', ['categories' => $categories]);
+        return view('categories/index', ['categories' => $categories]);
     }
 
     /**
@@ -27,7 +27,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
-        return view('create');
+        return view('categories/create');
     }
 
     /**
@@ -59,7 +59,7 @@ class CategoriesController extends Controller
     public function show(Category $category)
     {
         //
-        return view('show', ['category' => $category]);
+        return view('categories/show', ['category' => $category]);
     }
 
     /**
@@ -71,7 +71,7 @@ class CategoriesController extends Controller
     public function edit(Category $category)
     {
         //
-        return view('edit', ['category' => $category]);
+        return view('categories/edit', ['category' => $category]);
     }
 
     /**
@@ -91,7 +91,7 @@ class CategoriesController extends Controller
         $category->Category = request('Category');
         $category->Description = request('Description');
         $category->save();
-        return redirect(route('categeries.index'));
+        return redirect(route('categories.index'));
     }
 
     /**
