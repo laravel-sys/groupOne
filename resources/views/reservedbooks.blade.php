@@ -51,8 +51,8 @@
  <input type="hidden" name="user_id" value="{{$reservation->user_id}}" />
 
  <button type="submit" class="btn btn-primary">submit</button>
-@endif
- </td>
+
+ </td>@endif
  </tr>
  </form>
 
