@@ -15,6 +15,8 @@ class BooksController extends Controller
     public function index()
     {
         //
+        $books = Book::get();
+        return view('books/index', ['books' => $books]);
     }
 
     /**
@@ -25,6 +27,7 @@ class BooksController extends Controller
     public function create()
     {
         //
+        return view('books/create');
     }
 
     /**
@@ -36,6 +39,15 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'Author' => 'required',
+            'Title' => 'required',
+        ]);
+        $book = new Book();
+        $book->Author = request('Author');
+        $book->Title = request('Title');
+        $book->save();
+        return redirect('books');
     }
 
     /**
@@ -47,6 +59,7 @@ class BooksController extends Controller
     public function show(Book $book)
     {
         //
+        return view('books/show', ['book' => $book]);
     }
 
     /**
@@ -58,6 +71,7 @@ class BooksController extends Controller
     public function edit(Book $book)
     {
         //
+        return view('books/edit', ['book' => $book]);
     }
 
     /**
@@ -70,6 +84,14 @@ class BooksController extends Controller
     public function update(Request $request, Book $book)
     {
         //
+        $request->validate([
+            'Author' => 'required',
+            'Title' => 'required',
+        ]);
+        $book->Author = request('Author');
+        $book->Title = request('Title');
+        $book->save();
+        return redirect(route('books.index'));
     }
 
     /**
@@ -81,5 +103,7 @@ class BooksController extends Controller
     public function destroy(Book $book)
     {
         //
+        $book->delete();
+        return redirect(route('books.index'));
     }
 }

@@ -15,6 +15,8 @@ class CategoriesController extends Controller
     public function index()
     {
         //
+        $categories = Category::get();
+        return view('index', ['categories' => $categories]);
     }
 
     /**
@@ -25,6 +27,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
+        return view('create');
     }
 
     /**
@@ -36,6 +39,15 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'Category' => 'required',
+            'Description' => 'required',
+        ]);
+        $category = new Category();
+        $category->Category = request('Category');
+        $category->Description = request('Description');
+        $category->save();
+        return redirect('category');
     }
 
     /**
@@ -47,6 +59,7 @@ class CategoriesController extends Controller
     public function show(Category $category)
     {
         //
+        return view('show', ['category' => $category]);
     }
 
     /**
@@ -58,6 +71,7 @@ class CategoriesController extends Controller
     public function edit(Category $category)
     {
         //
+        return view('edit', ['category' => $category]);
     }
 
     /**
@@ -70,6 +84,14 @@ class CategoriesController extends Controller
     public function update(Request $request, Category $category)
     {
         //
+        $request->validate([
+            'Category' => 'required',
+            'Description' => 'required',
+        ]);
+        $category->Category = request('Category');
+        $category->Description = request('Description');
+        $category->save();
+        return redirect(route('categeries.index'));
     }
 
     /**
@@ -81,5 +103,7 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         //
+        $category->delete();
+        return redirect(route('categories.index'));
     }
 }
