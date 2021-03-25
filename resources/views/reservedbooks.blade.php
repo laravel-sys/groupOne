@@ -19,7 +19,7 @@
  </tr>
  @foreach($reservedBooks as $reservation)
 
- 
+
  <form method="POST" action="/reservations/{{$reservation->id}}">
  @csrf
  @method('PUT')
@@ -30,7 +30,9 @@
  <td class="col-md-1" >{{$reservation->book_id}}</td>
  <td class="col-md-2" >{{$reservation->startDate}}</td>
  <td class="col-md-2">{{$reservation->endDate}}</td>
+ @if($reservation->status=="requested")
  <td class="col-md-2"><select name="status" value="{{$reservation->status}}">
+
  <option value="accept">Accept</option>
  <option value="decline">Decline</option>
 </select>
@@ -40,20 +42,20 @@
 
 
  <td class="col-md-2">
- 
+
  <input type="hidden" name="book_id" value="{{$reservation->book_id}}" />
  <input type="hidden" name="startdate" value="{{$reservation->startDate}}" />
  <input type="hidden" name="enddate" value="{{$reservation->endDate}}" />
 
- 
+
  <input type="hidden" name="user_id" value="{{$reservation->user_id}}" />
 
  <button type="submit" class="btn btn-primary">submit</button>
- 
+@endif
  </td>
  </tr>
  </form>
- 
+
  @endforeach
  </table>
  </div></div>
