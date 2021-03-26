@@ -6,46 +6,28 @@
         <div class="col-md-12">
         <div class="card mt-3">
         <h1>Reserve a Book</h1>
-        <form class="col-lg-8" method="POST" action="{{route('reservations.store')}}">
+ @foreach($books as $book)
+ <form class="col-lg-8" method="POST" action="{{route('reservations.store')}}">
  @csrf
+
  <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
- <br>
- <lable for="bookID"> Book id</lable> <br>
-
- <input name="book_id" /> <br>
-
- <lable for="startdate"> reserve at</lable>
- <br>
- <input 
-    name="startdate" 
-    id="date" 
-    class="form-control" 
-    style="width: 100%; display: inline;" 
-    onchange="invoicedue(event);" 
-    type="date">
-    <br>
-<lable for="EndDate"> return at</lable>
-<br>
- <input 
-    name="enddate" 
-    id="date" 
-    class="form-control" 
-    style="width: 100%; display: inline;" 
-    onchange="invoicedue(event);" 
-    type="date">
  
-    <br>
-    <input type="submit" class="btn btn-danger form-group mt-3" value="Reserve Book"/>
-    @if ($errors->any())
- <div class="alert alert-danger">
- <ul>
- @foreach ($errors->all() as $error)
- <li>{{ $error }}</li>
- @endforeach
- </ul>
- </div>
-@endif
+ <lable for="bookID"> {{$book->title}}</lable> <br>
+
+ <input type="hidden" name="book_id" value="{{$book->id}}" />
+ <button type="submit" class="btn btn-primary">reserve</button>
+ 
  </form>
+
+
+@endforeach
+@if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
         </div>
         </div>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
@@ -25,7 +26,8 @@ class ReservationsController extends Controller
             return view('reservedbooks',['reservedBooks'=>$reservedBooks]);
         }
         else{
-            return view('reserve',[$user]);
+            $books=\DB::table('book')->get();
+            return view('reserve',['books'=>$books]);
         }
             
         
@@ -48,21 +50,18 @@ class ReservationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $request->validate(
-            ['book_id'=>'required',
-            'startdate'=>'required',
-            'enddate'=>'required',]);
-        $reservation =new Reservation();
-        $reservation->book_id = request('book_id');
-        $reservation->startDate = request('startdate');
-        $reservation->endDate = request('enddate');
-        $reservation->user_id = request('user_id');
-        $reservation->comment = "";
-        $reservation->status = "requested";
+    {   $reservationFound=Reservation::where('book_id','=', request('book_id'))->where('endDate','>=', date('Y-m-d').' 00:00:00')->get();
+        if(count($reservationFound)==0){
+            $reservation =new Reservation();
+            $reservation->book_id = request('book_id');
+            $reservation->endDate = Carbon::tomorrow();
+            $reservation->user_id = request('user_id');
+            $reservation->status = "requested";
+            $reservation->save();
+            return redirect()->back()->with('success', 'please checkout your book within 24 hours');
 
-        $reservation->save();
-        return redirect('reservations');
+        }
+        return redirect()->back()->with('success', 'This book is currently reserved by another user');;
     }
 
     /**
@@ -96,21 +95,15 @@ class ReservationsController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        $request->validate(
-            ['book_id'=>'required',
-            'startdate'=>'required|date',
-            'enddate'=>'required|date|after:startdate',
-            'status'=>'required'
-            ]);
+       
         $reservation->book_id = request('book_id');
-        $reservation->startDate = request('startdate');
-        $reservation->endDate = request('enddate');
+        $reservation->startDate = Carbon::today();
+        $reservation->endDate = Carbon::now()->addDays(15);
         $reservation->user_id = request('user_id');
-        $reservation->comment = request('comment');
-        $reservation->status = request('status');
+        $reservation->status = "Checkout";
 
         $reservation->save();
-        return redirect('reservations');
+        return redirect('reserve');
     }
 
     /**
