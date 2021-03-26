@@ -14,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBook'])->name('returnBook');
+Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
 Route::resource('reservations', ReservationsController::class);
 

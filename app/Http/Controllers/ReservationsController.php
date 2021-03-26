@@ -120,4 +120,19 @@ class ReservationsController extends Controller
 
         return view('reservation.returnBook', ['reservations' => $res, 'old' => $old]);
     }
+    public function temp(Request $req)
+    {
+        $res = null;
+        $old = '';
+        if ($req->input('book_id') == null) {
+            $res = DB::table('book')->get();
+            $old = '';
+        } else {
+            // $res = DB::table('book')->where('title', '=', (int) $req->input('book_id'))->get();
+            $res = DB::table('book')->where('title', 'like', '%' . $req->input('book_id') . '%')->get();
+            $old = $req->input('book_id');
+        }
+
+        return view('welcome', ['books' => $res, 'old' => $old]);
+    }
 }

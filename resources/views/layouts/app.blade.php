@@ -24,6 +24,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ URL::to('/assets/css/ani.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ URL::to('/assets/logo.jpg') }}">
+
 </head>
 
 <body>
@@ -93,6 +95,7 @@
                         @endguest
                     </ul>
                 </div>
+
             </div>
         </nav>
 
