@@ -13,11 +13,11 @@
                 </div>
                 <div class="column">
                         <h3>Email: info@qf.org.qa</h3>
-                        <p>Tel: <b>+9745243222</b></p>
+                        <h3>Tel: +9745243222 </h3>
                         <p>For general media inquiries,</p> 
                         <p>please contact <b>libraryMang@li.org.qa</b></p>
-                        <p>Would you like to know our location?</p>
-                        <p>Location: <b> Doha, Qatar </b></p>
+                        <p>Would you like to prevent or report fraud?</p>
+                        <p>Location: <b> Doha, Qatar</p>
                 </div>
               </div>
             </div>

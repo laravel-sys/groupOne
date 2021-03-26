@@ -16,7 +16,7 @@
                         <p>Tel: <b>+9745243222</b></p>
                         <p>For general media inquiries,</p> 
                         <p>please contact <b>libraryMang@li.org.qa</b></p>
-                        <p>Would you like to know our location?</p>
+                        <p>Would you like to prevent or report fraud?</p>
                         <p>Location: <b> Doha, Qatar </b></p>
                 </div>
               </div>
