@@ -3,7 +3,7 @@
 @section('content')
 
             <div class="container">
-                    <div style="text-align:center; margin-bottom:100px;">
+                    <div style="text-align:center">
                         <h1>Library Contact Info</h1>
                             <p><b>For more inquries please contact us:</b></p>
                     </div>
@@ -16,7 +16,7 @@
                                 <p>please contact <b>libraryMang@li.org.qa</b></p>
                                 <p>Would you like to know our location?</p>
                                 <p>Location: <b> Doha, Qatar. </b></p>
-                                <a class="btn btn-primary" href="{{route('contacts.create')}}">Submit your inquiry</a>
+                                <a class="btn btn-primary" href="/contacts">Submit your inquiry</a>
                         </div> 
 
                         <div class="column" style="padding-left:200px;">
