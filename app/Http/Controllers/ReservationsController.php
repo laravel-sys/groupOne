@@ -17,7 +17,7 @@ class ReservationsController extends Controller
     {
         $this->middleware('auth', [
             'except' => [
-                'temp'
+                ''
             ]
         ]);
     }
@@ -29,16 +29,11 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-
-
-        $user = Auth::user();
-        if ($user->name == "admin") {
-            $reservedBooks = Reservation::all();
-            return view('reservedbooks', ['reservedBooks' => $reservedBooks]);
-        } else {
-            $books = DB::table('book')->get();
-            return view('reserve', ['books' => $books]);
+        if (Auth::user()->name != "admin") {
+            return redirect('books');
         }
+        $reservedBooks = Reservation::all();
+        return view('reservedbooks', ['reservedBooks' => $reservedBooks]);
     }
 
     /**
@@ -59,17 +54,19 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        $reservationFound = Reservation::where('book_id', '=', request('book_id'))->where('endDate', '>=', date('Y-m-d') . ' 00:00:00')->where('status','<>', 'returned')->get();
+        $reservationFound = Reservation::where('book_id', '=', request('book_id'))->where('endDate', '>=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
         if (count($reservationFound) == 0) {
             $reservation = new Reservation();
             $reservation->book_id = request('book_id');
             $reservation->endDate = Carbon::tomorrow();
-            $reservation->user_id = request('user_id');
+            $reservation->user_id = Auth::user()->id;
             $reservation->status = "requested";
             $reservation->save();
-            return redirect()->back()->with('success', 'please checkout your book within 24 hours');
+            // return redirect()->back()->with('success', 'please checkout your book within 24 hours');
+            return redirect()->back()->with('success', true);
         }
-        return redirect()->back()->with('success', 'This book is currently reserved by another user');
+        return redirect()->back()->with('success', false);
+        // return redirect()->back()->with('success', 'This book is currently reserved by another user');
     }
 
     /**
@@ -139,7 +136,9 @@ class ReservationsController extends Controller
 
     public function returnBook(Request $req)
     {
-        // dd($req->input('book_id'));
+        if (Auth::user()->name != "admin") {
+            return redirect('books');
+        }
         $res = null;
         $old = '';
         if ($req->input('book_id') == null) {
@@ -155,19 +154,19 @@ class ReservationsController extends Controller
 
         return view('reservation.returnBook', ['reservations' => $res, 'old' => $old]);
     }
-    public function temp(Request $req)
-    {
-        $res = null;
-        $old = '';
-        if ($req->input('book_id') == null) {
-            $res = DB::table('book')->get();
-            $old = '';
-        } else {
-            // $res = DB::table('book')->where('title', '=', (int) $req->input('book_id'))->get();
-            $res = DB::table('book')->where('title', 'like', '%' . $req->input('book_id') . '%')->get();
-            $old = $req->input('book_id');
-        }
+    // public function temp(Request $req)
+    // {
+    //     $res = null;
+    //     $old = '';
+    //     if ($req->input('book_id') == null) {
+    //         $res = DB::table('book')->get();
+    //         $old = '';
+    //     } else {
+    //         // $res = DB::table('book')->where('title', '=', (int) $req->input('book_id'))->get();
+    //         $res = DB::table('book')->where('title', 'like', '%' . $req->input('book_id') . '%')->get();
+    //         $old = $req->input('book_id');
+    //     }
 
-        return view('welcome', ['books' => $res, 'old' => $old]);
-    }
+    //     return view('welcome', ['books' => $res, 'old' => $old]);
+    // }
 }
