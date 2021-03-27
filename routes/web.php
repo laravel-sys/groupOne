@@ -26,3 +26,4 @@ Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBo
 Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
 Route::resource('reservations', ReservationsController::class);
 
+

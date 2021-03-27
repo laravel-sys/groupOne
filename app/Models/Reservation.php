@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
-    public $timestamps = false;
+
     use HasFactory;
+    public function user(){
+        return$this->belongsTo(User::class);
+    }
+    public $timestamps = false;
+
 }

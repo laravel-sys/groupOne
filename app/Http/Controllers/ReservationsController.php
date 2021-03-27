@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
+   public function __construct()
+    {
+    $this->middleware('auth',['expect'=>['reserve', ]]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +25,19 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        return 'hi';
+
+
+        $user = Auth::user();
+        if($user->name=="admin"){
+            $reservedBooks=Reservation::all();
+            return view('reservedbooks',['reservedBooks'=>$reservedBooks]);
+        }
+        else{
+            $books=\DB::table('book')->get();
+            return view('reserve',['books'=>$books]);
+        }
+            
+        
     }
 
     /**
@@ -36,8 +57,23 @@ class ReservationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
     {
-        //
+      
+
+    {   $reservationFound=Reservation::where('book_id','=', request('book_id'))->where('endDate','>=', date('Y-m-d').' 00:00:00')->get();
+        if(count($reservationFound)==0){
+            $reservation =new Reservation();
+            $reservation->book_id = request('book_id');
+            $reservation->endDate = Carbon::tomorrow();
+            $reservation->user_id = request('user_id');
+            $reservation->status = "requested";
+            $reservation->save();
+            return redirect()->back()->with('success', 'please checkout your book within 24 hours');
+
+        }
+        return redirect()->back()->with('success', 'This book is currently reserved by another user');;
+
     }
 
     /**
@@ -59,9 +95,11 @@ class ReservationsController extends Controller
      */
     public function edit(Reservation $reservation)
     {
+
         $user = DB::table('users')->where('id', '=', $reservation->user_id)->get();
         // dd(reservation->id);
         return view('reservation.edit', ['reservation' => $reservation, 'user' => $user[0]->name]);
+
     }
 
     /**
@@ -73,21 +111,21 @@ class ReservationsController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        // $input = request('endDate');
-        // echo $input . '<br>';
-        // $date = strtotime($input);
-        // // echo $date;
-        // // echo date("Y/m/d");
-        // // dd(date('Y/m/d', $date) > date("Y/m/d"));
-        // if (date('Y/m/d', $date) < date("Y/m/d")) {
-        //     return redirect()->route('returnBook')->with('error', "Please, Select correct date");;
-        // }
 
         $reservation->comment = request('comment');
         $reservation->endDate = new DateTime();
         $reservation->status = 'returned';
         $reservation->save();
         return redirect()->route('returnBook');
+       
+        $reservation->book_id = request('book_id');
+        $reservation->startDate = Carbon::today();
+        $reservation->endDate = Carbon::now()->addDays(15);
+        $reservation->user_id = request('user_id');
+        $reservation->status =  request('status');
+
+        $reservation->save();
+        return redirect('reserve');
     }
 
     /**
@@ -135,4 +173,5 @@ class ReservationsController extends Controller
 
         return view('welcome', ['books' => $res, 'old' => $old]);
     }
+
 }
