@@ -1,4 +1,7 @@
 <?php
+
+use App\Http\Controllers\ReservationsController;
+
 use App\Http\Controllers\ContactsController;
 
 
@@ -31,4 +34,5 @@ Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBo
 Route::get('/', [BooksController::class, 'index'])->name('index');
 Route::resource('reservations', ReservationsController::class);
 Route::resource('books', BooksController::class);
+
 
