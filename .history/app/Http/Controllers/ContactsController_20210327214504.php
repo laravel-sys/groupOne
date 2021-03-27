@@ -49,7 +49,7 @@ class ContactsController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required',-
             'phone' => 'required',
             'message' => 'required',
         ]);

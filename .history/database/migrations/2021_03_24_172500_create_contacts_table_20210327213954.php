@@ -18,13 +18,14 @@ class CreateContactsTable extends Migration
             $table->string('name');
             $table->text('email');
             $table->string('phone');
+            $table->string('subject');
             $table->string('message');
            
             
             // $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

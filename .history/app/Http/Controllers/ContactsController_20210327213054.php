@@ -49,17 +49,17 @@ class ContactsController extends Controller
     {
         request()->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required',
             'phone' => 'required',
             'message' => 'required',
         ]);
 
-        $contact = new Contact();
+        $contact = 
         $contact->name = request('name');
         $contact->email = request('email');
         $contact->phone = request('phone');
         $contact->message = request('message');
-        // $contact->user_id = Auth::user()->id;
+        $contact->user_id = Auth::user()->id;
 
         $contact->save();
         return redirect(route('contacts.index'));
