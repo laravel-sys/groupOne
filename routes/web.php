@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-use App\Http\Controllers\ReservationsController;
 
-Route::resource('reservations',ReservationsController::class);
+Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBook'])->name('returnBook');
+Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
+Route::resource('reservations', ReservationsController::class);
+
+

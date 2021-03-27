@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
-    public function __construct()
+   public function __construct()
     {
     $this->middleware('auth',['expect'=>['reserve', ]]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +25,8 @@ class ReservationsController extends Controller
      */
     public function index()
     {
+
+
         $user = Auth::user();
         if($user->name=="admin"){
             $reservedBooks=Reservation::all();
@@ -50,6 +57,10 @@ class ReservationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
+    {
+      
+
     {   $reservationFound=Reservation::where('book_id','=', request('book_id'))->where('endDate','>=', date('Y-m-d').' 00:00:00')->get();
         if(count($reservationFound)==0){
             $reservation =new Reservation();
@@ -62,6 +73,7 @@ class ReservationsController extends Controller
 
         }
         return redirect()->back()->with('success', 'This book is currently reserved by another user');;
+
     }
 
     /**
@@ -83,7 +95,11 @@ class ReservationsController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        //
+
+        $user = DB::table('users')->where('id', '=', $reservation->user_id)->get();
+        // dd(reservation->id);
+        return view('reservation.edit', ['reservation' => $reservation, 'user' => $user[0]->name]);
+
     }
 
     /**
@@ -95,6 +111,12 @@ class ReservationsController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
+
+        $reservation->comment = request('comment');
+        $reservation->endDate = new DateTime();
+        $reservation->status = 'returned';
+        $reservation->save();
+        return redirect()->route('returnBook');
        
         $reservation->book_id = request('book_id');
         $reservation->startDate = Carbon::today();
@@ -116,4 +138,40 @@ class ReservationsController extends Controller
     {
         //
     }
+
+
+    public function returnBook(Request $req)
+    {
+        // dd($req->input('book_id'));
+        $res = null;
+        $old = '';
+        if ($req->input('book_id') == null) {
+            $res = DB::table('reservations')->where('status', '=',  'ongoing')->get();
+            $old = '';
+            // dd($req->input('book_id'));
+        } else {
+            $res = DB::table('reservations')->where('book_id', '=', (int) $req->input('book_id'))->where('status', '=',  'ongoing')->get();
+            $old = $req->input('book_id');
+            // dd((int) $req->input('book_id'));
+            // dd($req->input('book_id'));
+        }
+
+        return view('reservation.returnBook', ['reservations' => $res, 'old' => $old]);
+    }
+    public function temp(Request $req)
+    {
+        $res = null;
+        $old = '';
+        if ($req->input('book_id') == null) {
+            $res = DB::table('book')->get();
+            $old = '';
+        } else {
+            // $res = DB::table('book')->where('title', '=', (int) $req->input('book_id'))->get();
+            $res = DB::table('book')->where('title', 'like', '%' . $req->input('book_id') . '%')->get();
+            $old = $req->input('book_id');
+        }
+
+        return view('welcome', ['books' => $res, 'old' => $old]);
+    }
+
 }
