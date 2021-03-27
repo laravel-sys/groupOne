@@ -3,6 +3,10 @@
 use App\Http\Controllers\ReservationsController;
 
 use App\Http\Controllers\ContactsController;
+
+
+use App\Http\Controllers\BooksController;
+use App\Http\Controllers\ReservationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +28,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBook'])->name('returnBook');
-Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
-Route::resource('reservations', ReservationsController::class);
-
-
 Route::resource('contacts', ContactsController::class);
+Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBook'])->name('returnBook');
+// Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
+Route::get('/', [BooksController::class, 'index'])->name('index');
+Route::resource('reservations', ReservationsController::class);
+Route::resource('books', BooksController::class);
+
+
