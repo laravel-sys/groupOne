@@ -50,6 +50,7 @@
 
 
  <input type="hidden" name="user_id" value="{{$reservation->user_id}}" />
+ <input type="hidden" name="status" value="checkout" />
 
  <button type="submit" class="btn btn-primary">checkout</button>
 

@@ -100,7 +100,7 @@ class ReservationsController extends Controller
         $reservation->startDate = Carbon::today();
         $reservation->endDate = Carbon::now()->addDays(15);
         $reservation->user_id = request('user_id');
-        $reservation->status = "Checkout";
+        $reservation->status =  request('status');
 
         $reservation->save();
         return redirect('reserve');
