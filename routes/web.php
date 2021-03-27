@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ReservationsController;
+
+use App\Http\Controllers\ContactsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +29,4 @@ Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
 Route::resource('reservations', ReservationsController::class);
 
 
+Route::resource('contacts', ContactsController::class);
