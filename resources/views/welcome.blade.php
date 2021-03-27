@@ -57,7 +57,7 @@
         </a>
     </div>
     <br>
-    <form class="col-lg-8 m-auto" action="{{ route('temp') }}">
+    <form class="col-lg-8 m-auto" id="searchTitle" action="{{ route('temp') }}">
         <div class="input-group mb-3">
             <input type="text" class="form-control" value="{{ $old }}" name="book_id" placeholder="Find book ...">
             <div class="input-group-append">
@@ -127,4 +127,15 @@
     <div style="position: absolute; right: 0; left: 0;">
         @include('layouts.footer')
     </div>
+
+<script>
+    const old = () => {
+        return {{ $old }}
+    }
+    if (old()) {
+        var elmnt = document.getElementById("searchTitle");
+        elmnt.scrollIntoView();
+    }
+</script>
 @endsection
+

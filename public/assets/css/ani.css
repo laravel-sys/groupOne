@@ -28,9 +28,17 @@ body{
         background: lightblue;
     }
     50%{
-        background: rgb(170, 169, 169);
+        background: rgb(188, 142, 248);
     }
 }
+/* @keyframes changecolor{
+    0%{
+        background: lightblue;
+    }
+    50%{
+        background: rgb(170, 169, 169);
+    }
+} */
 /* #app{
     background: lightblue;
     background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);

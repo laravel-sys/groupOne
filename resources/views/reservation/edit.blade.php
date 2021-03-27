@@ -23,7 +23,7 @@
                             <input type="date" class="mb-2" value="{{date('Y-m-d')}}" name='endDate' /> --}}
                             {{-- <h6 class="card-title">Add Comment</h6>
                             <textarea class="form-control mb-2" name="comment" placeholder="Leave Comment..."  id="comment" ></textarea> --}}
-                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                            <button type="submit" class="btn btn-primary mt-4">Return Book</button>
                         </form>
 
                         {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
