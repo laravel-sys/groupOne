@@ -30,8 +30,8 @@
 
                 <div class="form-group">
                     <label for="phone">Phone</label>
-                    <input class="form-control @if ($errors->has('phone')) border-danger @endif"
-                    name="phone" id="phone" value="{{old('phone')}}"/>
+                    <textarea class="form-control @if ($errors->has('phone')) border-danger @endif"
+                    name="phone" id="phone" value="{{old('phone')}}"></textarea>
 
                         @error('phone')
                             <p class="alert text-danger">You must enter your phone</p>
@@ -59,9 +59,9 @@
                 </div>
 
                
-                    <!-- <input type="hidden" name="user_id" value=""> -->
+                    <input type="hidden" name="user_id" value="">
                     
-                    <button type="submit" class="btn btn-primary" href="{{route('contacts.index')}}">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
 
                   </form>
         </div>

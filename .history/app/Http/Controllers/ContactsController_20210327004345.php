@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ContactsController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth' ,['except' => [
-    //         'index', 'create', 'store'
-    //     ]]);
-    //     //$this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth' ,['except' => [
+            'index',
+        ]]);
+        //$this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class ContactsController extends Controller
     {
         // $user=Auth::user();
         // return view('index',['contacts'=>$user->contacts]);
-        return view ('index');
+        return view "index");
     }
 
     /**
@@ -51,17 +51,19 @@ class ContactsController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
+            'subject' => 'required',
             'message' => 'required',
         ]);
 
         $contact->name = request('name');
         $contact->email = request('email');
         $contact->phone = request('phone');
+        $contact->subject = request('subject');
         $contact->message = request('message');
         $contact->user_id = Auth::user()->id;
 
-        $contact->save();
-        return redirect(route('contacts.index'));
+        $task->save();
+        return redirect('contacts');
     }
 
     /**
@@ -99,12 +101,14 @@ class ContactsController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
+            'subject' => 'required',
             'message' => 'required',
         ]);
 
         $contact->name = request('name');
         $contact->email = request('email');
         $contact->phone = request('phone');
+        $contact->subject = request('subject');
         $contact->message = request('message');
         $contact->user_id = Auth::user()->id;
 

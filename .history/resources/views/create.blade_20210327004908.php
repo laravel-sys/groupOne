@@ -59,9 +59,9 @@
                 </div>
 
                
-                    <!-- <input type="hidden" name="user_id" value=""> -->
+                    <input type="hidden" name="user_id" value="">
                     
-                    <button type="submit" class="btn btn-primary" href="{{route('contacts.index')}}">Submit</button>
+                    <button type="submit" class="btn btn-primary" href="{{route('contacts.create')}}">Submit</button>
 
                   </form>
         </div>

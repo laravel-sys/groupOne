@@ -60,7 +60,7 @@ class ContactsController extends Controller
         $contact->message = request('message');
         $contact->user_id = Auth::user()->id;
 
-        $contact->save();
+        $task->save();
         return redirect(route('contacts.index'));
     }
 

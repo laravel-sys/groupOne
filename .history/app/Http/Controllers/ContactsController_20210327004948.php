@@ -60,8 +60,8 @@ class ContactsController extends Controller
         $contact->message = request('message');
         $contact->user_id = Auth::user()->id;
 
-        $contact->save();
-        return redirect(route('contacts.index'));
+        $task->save();
+        return redirect('contacts');
     }
 
     /**
@@ -99,12 +99,14 @@ class ContactsController extends Controller
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
+            'subject' => 'required',
             'message' => 'required',
         ]);
 
         $contact->name = request('name');
         $contact->email = request('email');
         $contact->phone = request('phone');
+        $contact->subject = request('subject');
         $contact->message = request('message');
         $contact->user_id = Auth::user()->id;
 
