@@ -36,6 +36,35 @@ class ReservationsController extends Controller
         return view('reservedbooks', ['reservedBooks' => $reservedBooks]);
     }
 
+    public function getUserCheckedOut()
+    {
+        // $checkoutList = Reservation::all()->where('status', '=', 'checkout');
+        $checkoutList = DB::table('reservations')
+            ->join('users', 'users.id', '=', 'reservations.user_id')
+            ->join('books', 'books.id', '=', 'reservations.book_id')
+            ->select('books.*', 'reservations.*')
+            ->where('reservations.user_id', '=', Auth::user()->id)
+            ->where('reservations.status', '=', 'checkout')
+            ->get();
+            
+        return view('reservation.checkedout', ['checkoutList' => $checkoutList]);
+    }
+
+    public function getReturnedBooks()
+    {
+        // $history = Reservation::all()->where('status', '=', 'returned');
+        $history = DB::table('reservations')
+            ->join('users', 'users.id', '=', 'reservations.user_id')
+            ->join('books', 'books.id', '=', 'reservations.book_id')
+            ->select('books.*', 'reservations.*')
+            ->where('reservations.user_id', '=', Auth::user()->id)
+            ->where('reservations.status', '=', 'returned')
+            ->get();
+
+        // dd($checkoutList);
+        return view('reservation.history', ['history' => $history]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
