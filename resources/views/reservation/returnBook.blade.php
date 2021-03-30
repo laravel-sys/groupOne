@@ -25,7 +25,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="alert alert-success" role="alert">
-                                Reservation#: {{ $item->id }}
+                                Loan#: {{ $item->id }}
                             </div>
                             <div class="alert alert-success" role="alert">
                                 Book#: {{ $item->book_id }}
