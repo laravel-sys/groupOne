@@ -12,7 +12,7 @@
 
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
 
-                            <lable for="bookID"> {{ $book->title }}</lable> <br>
+                            <label for="bookID"> {{ $book->title }}</label> <br>
 
                             <input type="hidden" name="book_id" value="{{ $book->id }}" />
                             <button type="submit" class="btn btn-primary">reserve</button>
