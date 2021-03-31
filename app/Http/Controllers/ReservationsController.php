@@ -59,7 +59,6 @@ class ReservationsController extends Controller
     public function store(Request $request)
 
     {
-      
 
         $reservationFound = Reservation::where('book_id', '=', request('book_id'))->where('endDate', '>=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
         if (count($reservationFound) == 0) {
