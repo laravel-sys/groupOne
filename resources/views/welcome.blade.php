@@ -84,6 +84,7 @@
                     <a href="#" class="btn btn-primary">Details</a>
                 </div>
             </div>
+<<<<<<< Updated upstream
         </div>
         <div class="col-sm-4 mb-3">
             <div class="card">
@@ -94,6 +95,27 @@
                     <h5 class="card-title">Special title treatment</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                     <a href="#" class="btn btn-primary">Details</a>
+=======
+        </div> --}}
+        @foreach ($books as $item)
+
+            <div class="col-sm-4 mb-3">
+                <div class="card">
+                    <img class="card-img-top"
+                        src="https://picsum.photos/200/300"
+                        alt="Card image cap" style="height: 200px">
+                    <div class="card-body">
+                    <form method="POST" action="{{ route('wishlists.store') }}">
+                    @csrf
+
+                        <h5 class="card-title">{{$item->title}}</h5>
+                        <a href="/books/{{ $item->id }}" class="btn btn-primary">Details</a>
+                        <input name="book_id" value="{{ $item->id }}" hidden/>
+                        <button type="submit" class="btn btn-primary mb-5">wishlist</button>
+                        </form>
+
+                    </div>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>

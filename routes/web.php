@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\WishlistsController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +28,5 @@ Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBo
 Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
 Route::resource('reservations', ReservationsController::class);
 
+Route::resource('wishlists', WishlistsController::class);
 
