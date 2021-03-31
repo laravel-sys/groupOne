@@ -13,9 +13,13 @@ use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
-   public function __construct()
+    public function __construct()
     {
-    $this->middleware('auth',['expect'=>['reserve', ]]);
+        $this->middleware('auth', [
+            'except' => [
+                ''
+            ]
+        ]);
     }
 
     /**
@@ -25,19 +29,40 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-
-
-        $user = Auth::user();
-        if($user->name=="admin"){
-            $reservedBooks=Reservation::all();
-            return view('reservedbooks',['reservedBooks'=>$reservedBooks]);
+        if (Auth::user()->name != "admin") {
+            return redirect('books');
         }
-        else{
-            $books=\DB::table('book')->get();
-            return view('reserve',['books'=>$books]);
-        }
-            
-        
+        $reservedBooks = Reservation::all();
+        return view('reservedbooks', ['reservedBooks' => $reservedBooks]);
+    }
+
+    public function getUserCheckedOut()
+    {
+        // $checkoutList = Reservation::all()->where('status', '=', 'checkout');
+        $checkoutList = DB::table('reservations')
+            ->join('users', 'users.id', '=', 'reservations.user_id')
+            ->join('books', 'books.id', '=', 'reservations.book_id')
+            ->select('books.*', 'reservations.*')
+            ->where('reservations.user_id', '=', Auth::user()->id)
+            ->where('reservations.status', '=', 'checkout')
+            ->get();
+
+        return view('reservation.checkedout', ['checkoutList' => $checkoutList]);
+    }
+
+    public function getReturnedBooks()
+    {
+        // $history = Reservation::all()->where('status', '=', 'returned');
+        $history = DB::table('reservations')
+            ->join('users', 'users.id', '=', 'reservations.user_id')
+            ->join('books', 'books.id', '=', 'reservations.book_id')
+            ->select('books.*', 'reservations.*')
+            ->where('reservations.user_id', '=', Auth::user()->id)
+            ->where('reservations.status', '=', 'returned')
+            ->get();
+
+        // dd($checkoutList);
+        return view('reservation.history', ['history' => $history]);
     }
 
     /**
@@ -57,23 +82,23 @@ class ReservationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-
     {
 
         $reservationFound = Reservation::where('book_id', '=', request('book_id'))->where('endDate', '>=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
         if (count($reservationFound) == 0) {
             $wishlist= DB::table('wishlists')->where('book_id', '=', request('book_id'))->where('user_id','=',Auth::user()->id )->delete();
+
             $reservation = new Reservation();
             $reservation->book_id = request('book_id');
             $reservation->endDate = Carbon::tomorrow();
-            $reservation->user_id = request('user_id');
+            $reservation->user_id = Auth::user()->id;
             $reservation->status = "requested";
             $reservation->save();
-            return redirect()->back()->with('success', 'please checkout your book within 24 hours');
-
+            // return redirect()->back()->with('success', 'please checkout your book within 24 hours');
+            return redirect()->back()->with('success', true);
         }
-        return redirect()->back()->with('success', 'This book is currently reserved by another user');;
-
+        return redirect()->back()->with('success', false);
+        // return redirect()->back()->with('success', 'This book is currently reserved by another user');
     }
 
     /**
@@ -97,9 +122,9 @@ class ReservationsController extends Controller
     {
 
         $user = DB::table('users')->where('id', '=', $reservation->user_id)->get();
+        $book = DB::table('books')->where('id', '=', $reservation->book_id)->get();
         // dd(reservation->id);
-        return view('reservation.edit', ['reservation' => $reservation, 'user' => $user[0]->name]);
-
+        return view('reservation.edit', ['reservation' => $reservation, 'user' => $user[0]->name, 'book' => $book[0]]);
     }
 
     /**
@@ -112,20 +137,22 @@ class ReservationsController extends Controller
     public function update(Request $request, Reservation $reservation)
     {
 
-        $reservation->comment = request('comment');
-        $reservation->endDate = new DateTime();
-        $reservation->status = 'returned';
-        $reservation->save();
-        return redirect()->route('returnBook');
-       
-        $reservation->book_id = request('book_id');
-        $reservation->startDate = Carbon::today();
-        $reservation->endDate = Carbon::now()->addDays(15);
-        $reservation->user_id = request('user_id');
-        $reservation->status =  request('status');
+        if (request('from') === 'edit') {
+            $reservation->comment = request('comment');
+            $reservation->endDate = new DateTime();
+            $reservation->status = 'returned';
+            $reservation->save();
+            return redirect()->route('returnBook');
+        } else {
+            $reservation->book_id = request('book_id');
+            $reservation->startDate = Carbon::today();
+            $reservation->endDate = Carbon::now()->addDays(15);
+            $reservation->user_id = request('user_id');
+            $reservation->status =  request('status');
 
-        $reservation->save();
-        return redirect('reserve');
+            $reservation->save();
+            return redirect('reservations');
+        }
     }
 
     /**
@@ -142,15 +169,17 @@ class ReservationsController extends Controller
 
     public function returnBook(Request $req)
     {
-        // dd($req->input('book_id'));
+        if (Auth::user()->name != "admin") {
+            return redirect('books');
+        }
         $res = null;
         $old = '';
         if ($req->input('book_id') == null) {
-            $res = DB::table('reservations')->where('status', '=',  'ongoing')->get();
+            $res = DB::table('reservations')->where('status', '=',  'checkout')->get();
             $old = '';
             // dd($req->input('book_id'));
         } else {
-            $res = DB::table('reservations')->where('book_id', '=', (int) $req->input('book_id'))->where('status', '=',  'ongoing')->get();
+            $res = DB::table('reservations')->where('book_id', '=', (int) $req->input('book_id'))->where('status', '=',  'checkout')->get();
             $old = $req->input('book_id');
             // dd((int) $req->input('book_id'));
             // dd($req->input('book_id'));
@@ -158,20 +187,4 @@ class ReservationsController extends Controller
 
         return view('reservation.returnBook', ['reservations' => $res, 'old' => $old]);
     }
-    public function temp(Request $req)
-    {
-        $res = null;
-        $old = '';
-        if ($req->input('book_id') == null) {
-            $res = DB::table('book')->get();
-            $old = '';
-        } else {
-            // $res = DB::table('book')->where('title', '=', (int) $req->input('book_id'))->get();
-            $res = DB::table('book')->where('title', 'like', '%' . $req->input('book_id') . '%')->get();
-            $old = $req->input('book_id');
-        }
-
-        return view('welcome', ['books' => $res, 'old' => $old]);
-    }
-
 }

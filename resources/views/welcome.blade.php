@@ -57,7 +57,7 @@
         </a>
     </div>
     <br>
-    <form class="col-lg-8 m-auto" id="searchTitle" action="{{ route('temp') }}">
+    <form class="col-lg-8 m-auto" id="searchTitle" action="{{ route('index') }}">
         <div class="input-group mb-3">
             <input type="text" class="form-control" value="{{ $old }}" name="book_id" placeholder="Find book ...">
             <div class="input-group-append">
@@ -81,12 +81,11 @@
                 <div class="card-body">
                     <h5 class="card-title">Special title treatment</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Details</a>
+                    <a href="/books/1" class="btn btn-primary">Details</a>
                 </div>
             </div>
 
         @foreach ($books as $item)
-
             <div class="col-sm-4 mb-3">
                 <div class="card">
                     <img class="card-img-top"
@@ -104,6 +103,12 @@
 
                     </div>
 
+                       
+                </div>
+            
+        @endforeach
+
+         
                 </div>
             </div>
         </div>
@@ -118,7 +123,7 @@
                     <a href="#" class="btn btn-primary">Details</a>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 
 
@@ -126,14 +131,14 @@
         @include('layouts.footer')
     </div>
 
-<script>
-    const old = () => {
-        return {{ $old }}
-    }
-    if (old()) {
-        var elmnt = document.getElementById("searchTitle");
-        elmnt.scrollIntoView();
-    }
-</script>
-@endsection
+    <script>
+        const old = () => {
+            return {{ $old }}
+        }
+        if (old()) {
+            var elmnt = document.getElementById("searchTitle");
+            elmnt.scrollIntoView();
+        }
 
+    </script>
+@endsection

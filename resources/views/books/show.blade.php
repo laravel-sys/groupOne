@@ -12,6 +12,20 @@
             <button type="submit" class="btn btn-primary mb-5">Reserve</button>
         </form>
 
+
+        @if (\Session::has('success') && \Session::get('success') === true)
+            <div class="alert alert-success">
+                <ul>
+                    <li>Please checkout your book within 24 hours</li>
+                </ul>
+            </div>
+        @elseif (\Session::has('success'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>This book currently with another user</li>
+                </ul>
+            </div>
+        @endif
     </div>
 
 @endsection

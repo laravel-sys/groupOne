@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactsController;
+
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\WishlistsController;
 
@@ -24,9 +27,14 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::resource('contacts', ContactsController::class);
 Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBook'])->name('returnBook');
-Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
+Route::get('/reservations/checkout', [ReservationsController::class, 'getUserCheckedOut'])->name('checkout');
+Route::get('/reservations/history', [ReservationsController::class, 'getReturnedBooks'])->name('history');
+// Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
+Route::get('/', [BooksController::class, 'index'])->name('index');
 Route::resource('reservations', ReservationsController::class);
+Route::resource('books', BooksController::class);
 
 Route::resource('wishlists', WishlistsController::class);
 
