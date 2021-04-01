@@ -100,6 +100,7 @@
                                 Reservations List
                             </a>
                         </ul>
+
                         {{-- <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -123,6 +124,20 @@
                                         Book</a></li>
                             </ul>
                         </li>
+
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('wishlists') }}">
+                                 Wishlist
+                            </a>
+                        </ul>
+                        <!-- <ul class="navbar-nav">
+                        <a class="navbar-brand hoverdNav" href="{{ route('Notification') }}">
+
+                        Notification
+                        </a>
+
+                        </ul> -->
+
                     @endif
                     <ul class="navbar-nav mr-auto hoverdNav">
                         <a class="navbar-brand" href="{{ url('/contacts') }}">

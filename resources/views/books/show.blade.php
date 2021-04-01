@@ -57,6 +57,7 @@
             <button type="submit" class="btn btn-primary mb-5">Reserve</button>
         </form>
 
+
         @if (\Session::has('success') && \Session::get('success') === true)
             <div class="alert alert-success">
                 <ul>

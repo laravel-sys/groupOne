@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container bg-light p-3">
-        <h1>My Bookings List</h1>
+        <h1>Bookings List</h1>
         <table class="table table-striped">
             <thead>
                 <tr>

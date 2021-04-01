@@ -89,7 +89,7 @@ class RoomBookingsController extends Controller
             return redirect()->back()->with('alert', false)->with('message', 'The room is already booked in the sleceted time');
         }
         if (count($checkBooked) !== 0) {
-            return redirect()->back()->with('alert', false)->with('message', 'you have a book already');
+            return redirect()->back()->with('alert', false)->with('message', 'you already booked a room');
         }
 
         $info = new RoomBookings();
