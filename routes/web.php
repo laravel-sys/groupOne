@@ -4,7 +4,10 @@ use App\Http\Controllers\ContactsController;
 
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\ReservationsController;
+
 use App\Http\Controllers\RoomBookingsController;
+use App\Http\Controllers\WishlistsController;
+use App\Http\Controllers\NotificationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,5 +40,9 @@ Route::get('/roomsBooking/indexAdmin', [RoomBookingsController::class, 'indexAdm
 Route::resource('reservations', ReservationsController::class);
 Route::resource('roomsBooking', RoomBookingsController::class);
 Route::resource('books', BooksController::class);
+Route::get('/wishlists/wishlists', [WishlistsController::class, 'index'])->name('wishlists');
 
+Route::resource('wishlists', WishlistsController::class);
+Route::resource('Notification', NotificationsController::class);
 
+Route::get('/Notification/notifications', [NotificationsController::class, 'index'])->name('Notification');

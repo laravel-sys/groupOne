@@ -85,19 +85,18 @@
         </div>
     </form>
 
-    {{-- @foreach ($books as $item)
-        <div class="card mb-3">
-            <h2>{{ $item->id }}</h2>
-        </div>
-    @endforeach --}}
-    <br>
+
     <div class="row container m-auto">
-        {{-- <div class="col-sm-4 mb-3">
+        
+
+        @foreach ($books as $item)
+        <div class="col-sm-4 mb-3">
             <div class="card">
                 <img class="card-img-top"
                     src="https://images.theconversation.com/files/331930/original/file-20200501-42918-1tyr8tx.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
                     alt="Card image cap">
                 <div class="card-body">
+
                     <h5 class="card-title">Special title treatment</h5>
                     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                     <a href="/books/1" class="btn btn-primary">Details</a>
@@ -122,39 +121,31 @@
                                     <button type="submit" class="btn btn-success mb-5">Reserve</button>
                                 </form>
                             </div>
+                            <div class="col col-lg-2">
+                            <form method="POST" action="{{ route('wishlists.store') }}">
+                    @csrf
+
+                        <a href="/books/{{ $item->id }}" class="btn btn-primary">Details</a>
+                        <input name="book_id" value="{{ $item->id }}" hidden/>
+                        <button type="submit" class="btn btn-primary">wishlist</button>
+                        </form>
+
+                            </div>
                         </div>
 
 
 
-                    </div>
-                </div>
-            </div>
+             
+                       
+                </div></div>
+            
         @endforeach
 
-        {{-- <div class="col-sm-4 mb-3">
-            <div class="card">
-                <img class="card-img-top"
-                    src="https://images.theconversation.com/files/331930/original/file-20200501-42918-1tyr8tx.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
-                    alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Details</a>
+         
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 mb-3">
-            <div class="card">
-                <img class="card-img-top"
-                    src="https://images.theconversation.com/files/331930/original/file-20200501-42918-1tyr8tx.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
-                    alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Details</a>
-                </div>
-            </div>
-        </div> --}}
+            
     </div>
 
 

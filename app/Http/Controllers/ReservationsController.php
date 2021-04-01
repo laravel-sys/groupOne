@@ -83,8 +83,11 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
+
         $reservationFound = Reservation::where('book_id', '=', request('book_id'))->where('endDate', '>=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
         if (count($reservationFound) == 0) {
+            $wishlist= DB::table('wishlists')->where('book_id', '=', request('book_id'))->where('user_id','=',Auth::user()->id )->delete();
+
             $reservation = new Reservation();
             $reservation->book_id = request('book_id');
             $reservation->endDate = Carbon::tomorrow();
