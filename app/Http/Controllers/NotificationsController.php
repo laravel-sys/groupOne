@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class NotificationsController extends Controller
 {
@@ -23,9 +24,10 @@ class NotificationsController extends Controller
      */
     public function index()
 
-    {store();
-         $notifications=DB::table('notifications')->where('user_id','=', Auth::user()->id)->where('status','=','unread')->get();
-        
+    {
+        dd("index");
+        //  $notifications=DB::table('notifications')->where('user_id','=', Auth::user()->id)->where('status','=','unread')->get();
+        // dd("hello");
     }
 
     /**
@@ -47,9 +49,9 @@ class NotificationsController extends Controller
     public function store(Request $request)
     {
         if(Auth::user()->name=="admin"){
-            $reservations=DB::table('reservations').where('endDate', '<=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
+            $reservations=DB::table('reservations')->where('endDate', '<=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
             foreach($reservations as $reservation){
-                $notifications=DB::table('notifications').where('reservation_id','=',$reservation->id);
+                $notifications=DB::table('notifications')->where('reservation_id','=',$reservation->id)->get();
                 if(count($notifications)==0){
                     $notification= new Notification();
                     $notification->user_id = Auth::user()->id;
@@ -61,11 +63,11 @@ class NotificationsController extends Controller
             
         }
         else{
-            $wishlists=DB::table('wishlists').where('user_id', '=',Auth::user()->id)->get();
+            $wishlists=DB::table('wishlists')->where('user_id', '=',Auth::user()->id)->get();
         foreach($wishlists as $wishlist){
-            $reservationFound = Reservation::where('book_id', '=', $wishlist->book_id)->where('endDate', '>=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
+            $reservationFound = DB::table('reservations')->where('book_id', '=', $wishlist->book_id)->where('endDate', '>=', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'returned')->get();
             if(count($reservationFound)==0){
-            $notifications=DB::table('notifications').where('wishlist_id','=',$wishlist->id);
+            $notifications=DB::table('notifications')->where('wishlist_id','=',$wishlist->id)->get();
             if(count($notifications)==0){
                 $notification= new Notification();
                 $notification->user_id = Auth::user()->id;

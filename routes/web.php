@@ -5,7 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\WishlistsController;
-
+use App\Http\Controllers\NotificationsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +35,9 @@ Route::get('/reservations/history', [ReservationsController::class, 'getReturned
 Route::get('/', [BooksController::class, 'index'])->name('index');
 Route::resource('reservations', ReservationsController::class);
 Route::resource('books', BooksController::class);
+Route::get('/wishlists/wishlists', [WishlistsController::class, 'index'])->name('wishlists');
 
 Route::resource('wishlists', WishlistsController::class);
+Route::resource('Notification', NotificationsController::class);
 
+Route::get('/Notification/notifications', [NotificationsController::class, 'index'])->name('Notification');
