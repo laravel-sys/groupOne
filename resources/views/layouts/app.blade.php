@@ -101,8 +101,8 @@
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </div> --}}
-                        <li class="btn dropdown">
-                            <a class="na btn dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                        <li class="btn dropdown hoverdNav">
+                            <a class="btn dropdown-toggle" style="font-size: large" href="#" id="navbarScrollingDropdown" role="button"
                                 data-toggle="dropdown" aria-expanded="false">
                                 Book Room
                             </a>
@@ -116,7 +116,7 @@
                     @endif
                     <ul class="navbar-nav mr-auto hoverdNav">
                         <a class="navbar-brand" href="{{ url('/contacts') }}">
-                            Contacts
+                            Contact Us
                         </a>
                     </ul>
 

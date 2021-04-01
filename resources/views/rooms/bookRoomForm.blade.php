@@ -10,11 +10,11 @@
                 <label for="date">Select Date</label>
                 @php
                     $today = (new DateTime())->format('Y-m-d H:i:s');
-                    $minDate = explode(' ', $today)[0]
+                    $minDate = explode(' ', $today)[0];
                 @endphp
-                
-                <input type="date" min='{{ $minDate}}' class="form-control @error('date') border-danger @enderror" name="date"
-                    id="date" value="{{ old('date') }}">
+
+                <input type="date" min='{{ $minDate }}' class="form-control @error('date') border-danger @enderror"
+                    name="date" id="date" value="{{ old('date') }}">
                 @if ($errors->first('date'))
                     <p class="alert text-danger">You must enter a valid date</p>
                 @endif
@@ -28,6 +28,22 @@
                         {{ old('time') == 'From 08:00 AM To 09:10 AM' ? 'selected' : '' }}>
                         From 08:00 AM To 09:10 AM
                     </option>
+                    <option value="From 09:15 AM To 11:15 AM"
+                        {{ old('time') == 'From 09:15 AM To 11:15 AM' ? 'selected' : '' }}>
+                        From 09:15 AM To 11:15 AM
+                    </option>
+                    <option value="From 11:30 AM To 01:30 PM"
+                        {{ old('time') == 'From 11:30 AM To 01:30 PM' ? 'selected' : '' }}>
+                        From 11:30 AM To 01:30 PM
+                    </option>
+                    <option value="From 01:45 PM To 3:45 PM"
+                        {{ old('time') == 'From 01:45 PM To 3:45 PM' ? 'selected' : '' }}>
+                        From 01:45 PM To 3:45 PM
+                    </option>
+                    <option value="From 4:00 PM To 06:00 PM"
+                        {{ old('time') == 'From 4:00 PM To 06:00 PM' ? 'selected' : '' }}>
+                        From 4:00 PM To 06:00 PM
+                    </option>
                 </select>
                 @if ($errors->has('time'))
                     <p class="alert text-danger">Select time</p>
@@ -40,7 +56,7 @@
                     <option value="">Select a Room</option>
                     @foreach ($rooms as $room)
                         <option value="{{ $room->id }}" {{ old('room_id') == $room->id ? 'selected' : '' }}>
-                            Room #{{ $room->id }}
+                            Room #{{ $room->id }} - {{ $room->location }} - {{ $room->type }}
                         </option>
                     @endforeach
                 </select>
@@ -63,5 +79,9 @@
                 </ul>
             </div>
         @endif
+    </div>
+
+    <div style="position: absolute; right: 0px; left: 0px; margin-top:8%">
+        @include('layouts.footer')
     </div>
 @endsection

@@ -21,21 +21,32 @@
                     <tr>
                         <th scope="row">{{ $data->id }}</th>
                         <th scope="row">{{ $data->user_id }}</th>
-                        <td>{{ $data->when_date }}</td>
+                        @php
+                            $date_one = $data->when_date; //string variable
+                            $date_two = date('Y-m-d', time()); //date variable
+
+                            $time1 = strtotime($date_one);
+                            $time2 = strtotime($date_two);
+                            if ($time1 < $time2 && $data->status == 'booked') {
+                                echo '<td style="color:red; font-weight:bolder">' . $data->when_date . '</td>';
+                            } else {
+                                echo '<td>' . $data->when_date . '</td>';
+                            }
+                        @endphp
+
                         <td>{{ $data->when_time }}</td>
                         <td>{{ $data->room_id }}</td>
-                        <td>
-                            {{ $data->status }}
-                        </td>
+                        <td>{{ $data->status }}</td>
+
                         <td class='d-flex'>
                             @if ($data->status == 'booked')
-                            <form method="POST" action="/roomsBooking/{{ $data->id}}" class="mr-1">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="book_id" value="{{ $data->id }}" />
-                                <button type="submit" class="btn btn-success" value="close" name="to">CLOSE</button>
-                            </form>
-                            {{-- <a class="btn btn-primary" href="/roomsBooking/{{ $data->id }}/edit">Edit</a> --}}
+                                <form method="POST" action="/roomsBooking/{{ $data->id }}" class="mr-1">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="book_id" value="{{ $data->id }}" />
+                                    <button type="submit" class="btn btn-success" value="close" name="to">CLOSE</button>
+                                </form>
+                                {{-- <a class="btn btn-primary" href="/roomsBooking/{{ $data->id }}/edit">Edit</a> --}}
                             @endif
                         </td>
                     </tr>
