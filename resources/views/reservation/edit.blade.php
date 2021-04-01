@@ -12,9 +12,8 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Return Book for User {{ $user }}</h5>
-                        {{-- <h6 class="card-title">Reservation Date: {{  $reservation->startDate}}</h6> --}}
-                        <h6 class="card-title">Reservation Date: {{ explode(' ', $reservation->startDate)[0] }}</h6>
-                        <h6 class="card-title mb-5">Reservation Status: {{ $reservation->status }}</h6>
+                        <h6 class="card-title">Loan Date: {{ explode(' ', $reservation->startDate)[0] }}</h6>
+                        <h6 class="card-title mb-5">Loan Status: {{ $reservation->status }}</h6>
 
                         <form class="col-lg-8" method="POST" action="/reservations/{{ $reservation->id }}">
                             @method('PUT')
@@ -26,10 +25,7 @@
                             <input type="text" name='from' value="edit" hidden>
                             <button type="submit" class="btn btn-primary mt-4">Return Book</button>
                         </form>
-
-                        {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                     </div>
-
                 </div>
                 <a href="{{ route('returnBook') }}">Back</a>
             </div>

@@ -16,7 +16,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -53,12 +54,6 @@
                     <img src="{{ URL::to('/assets/logo.jpg') }}" style="width: 50px; height: 50px;" alt="">
 
                 </a>
-                
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                   Library
-</a>
-
-    
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
@@ -67,22 +62,90 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                            <a class="navbar-brand" href="{{ url('/contacts') }}">
-                                  Contacts
+                    @if (Auth::check() && Auth::user()->name == 'admin')
+                        <ul class="navbar-nav ml-5">
+                            <a class="navbar-brand hoverdNav" href="{{ route('reservations.index') }}">
+                                Reservations
                             </a>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('returnBook') }}">
+                                Retrun Book
+                            </a>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('indexAdmin') }}">
+                                Bookings
+                            </a>
+                        </ul>
+                    @endif
+                    @if (Auth::check() && Auth::user()->name != 'admin')
+                        <ul class="navbar-nav ml-5">
+                            <a class="navbar-brand hoverdNav" href="{{ route('history') }}">
+                                History
+                            </a>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('checkout') }}">
+                                Checkedout Books
+                            </a>
+                        </ul>
+
+                        {{-- <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div> --}}
+                        <li class="btn dropdown hoverdNav">
+                            <a class="btn dropdown-toggle" style="font-size: large" href="#" id="navbarScrollingDropdown" role="button"
+                                data-toggle="dropdown" aria-expanded="false">
+                                Book Room
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="{{ route('roomsBooking.index') }}">My Bookings</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('roomsBooking.create') }}">Make New
+                                        Book</a></li>
+                            </ul>
+                        </li>
+
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('wishlists') }}">
+                                 Wishlist
+                            </a>
+                        </ul>
+                        <!-- <ul class="navbar-nav">
+                        <a class="navbar-brand hoverdNav" href="{{ route('Notification') }}">
+                                 
+                        Notification
+                        </a>
+
+                        </ul> -->
+
+                    @endif
+                    <ul class="navbar-nav mr-auto hoverdNav">
+                        <a class="navbar-brand" href="{{ url('/contacts') }}">
+                            Contact Us
+                        </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-                            
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -97,7 +160,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
+                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -118,10 +181,12 @@
         </main>
     </div>
 
-
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+    </script>
 
 </body>
 
