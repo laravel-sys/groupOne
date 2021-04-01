@@ -73,6 +73,11 @@
                                 Retrun Book
                             </a>
                         </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('indexAdmin') }}">
+                                Bookings
+                            </a>
+                        </ul>
                     @endif
                     @if (Auth::check() && Auth::user()->name != 'admin')
                         <ul class="navbar-nav ml-5">
@@ -85,6 +90,31 @@
                                 Checkedout Books
                             </a>
                         </ul>
+
+                        {{-- <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div> --}}
+                        <li class="btn dropdown hoverdNav">
+                            <a class="btn dropdown-toggle" style="font-size: large" href="#" id="navbarScrollingDropdown" role="button"
+                                data-toggle="dropdown" aria-expanded="false">
+                                Book Room
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item" href="{{ route('roomsBooking.index') }}">My Bookings</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('roomsBooking.create') }}">Make New
+                                        Book</a></li>
+                            </ul>
+                        </li>
+
                         <ul class="navbar-nav">
                             <a class="navbar-brand hoverdNav" href="{{ route('wishlists') }}">
                                  Wishlist
@@ -97,10 +127,11 @@
                         </a>
 
                         </ul> -->
+
                     @endif
                     <ul class="navbar-nav mr-auto hoverdNav">
                         <a class="navbar-brand" href="{{ url('/contacts') }}">
-                            Contacts
+                            Contact Us
                         </a>
                     </ul>
 
@@ -128,9 +159,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                                                     document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

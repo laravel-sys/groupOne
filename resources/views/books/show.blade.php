@@ -22,7 +22,7 @@
         @elseif (\Session::has('success'))
             <div class="alert alert-danger">
                 <ul>
-                    <li>This book currently with another user</li>
+                    <li>This book currently in use</li>
                 </ul>
             </div>
         @endif

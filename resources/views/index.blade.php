@@ -4,7 +4,7 @@
 
     <div class="container">
         <div style="text-align:center; margin-bottom:100px;">
-            <h1>Library Contact Info</h1>
+            <h1>BOOKY Contact Info</h1>
             <p>For more inquries please contact us:</p>
         </div>
         <div class="row">
