@@ -35,7 +35,7 @@ Route::get('paidbooks', [lateBooksController::class, 'getPaidBooks'])->name('pai
 // Route::get('/', [ReservationsController::class, 'temp'])->name('temp');
 Route::get('/', [BooksController::class, 'index'])->name('index');
 Route::resource('reservations', ReservationsController::class);
-Route::resource('late', lateBooksController::class);
+Route::resource('lateBook', lateBooksController::class);
 Route::resource('books', BooksController::class);
 
 

@@ -35,15 +35,24 @@ class lateBooksController extends Controller
 
     public function getLateBooks()
     {
-        $lateBooks = DB::table('reservations')
-            ->join('users', 'users.id', '=', 'reservations.user_id')
-            ->join('books', 'books.id', '=', 'reservations.book_id')
-            ->select('books.*', 'reservations.*')
-            ->where('reservations.status', '=', 'checkout')
-            ->where('endDate', '<', date('Y-m-d'))
+        $lateBooks1 = DB::table('late_books')
+            ->join('users', 'users.id', '=', 'late_books.user_id')
+            ->join('books', 'books.id', '=', 'late_books.book_id')
+            ->select('late_books.id as id', 'books.id as book_id','users.id as user_id','late_books.fees as fees', 'late_books.endDate as endDate', 'late_books.status as status')
+            ->where('late_books.user_id', '=', Auth::user()->id)
+            ->where('late_books.status', '<>', 'paid')
             ->get();
-
-        return view('lateBooks', ['lateBooks' => $lateBooks]);
+        if (count($lateBooks1) != 0) {
+            $lateBooks = DB::table('reservations')
+                ->join('users', 'users.id', '=', 'reservations.user_id')
+                ->join('books', 'books.id', '=', 'reservations.book_id')
+                ->select('books.*', 'reservations.*')
+                ->where('reservations.status', '=', 'checkout')
+                ->where('endDate', '<', date('Y-m-d'))
+                ->get();
+            return view('lateBooks', ['lateBooks' => $lateBooks]);
+        }        
+         return view('lateBooks', ['lateBooks' => $lateBooks1]);
     }
 
     public function getPaidBooks()
@@ -80,7 +89,7 @@ class lateBooksController extends Controller
     public function store(Request $request)
     {
         //
-        $lateBookFound = lateBooks::where('book_id', '=', request('book_id'))->where('endDate', '<', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'paid')->get();
+        $lateBookFound = lateBooks::where('book_id', '=', request('book_id'))->where('book_id', '=', Auth::user()->id)->where('endDate', '<', date('Y-m-d') . ' 00:00:00')->where('status', '<>', 'paid')->get();
         if (count($lateBookFound) == 0) {
             $lateBook = new lateBooks();
             $lateBook->book_id = request('book_id');

@@ -14,6 +14,9 @@
         </thead>
         <tbody>
             </tr>
+            @php
+            $num = 1;
+            @endphp
             @foreach ($paidBooks as $paidBook)
             <tr>
                 <th scope="row">{{ $num }}</th>
@@ -21,9 +24,8 @@
                 <td>{{ $paidBook->fees}}</td>
                 <td>{{ $paidBook->status}}</td>
             </tr>
-            @php
-            $num = 1;
-            @endphp
+            @endforeach
+
             @php
             $num++;
             @endphp

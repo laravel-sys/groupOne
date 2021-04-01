@@ -25,7 +25,7 @@
                 <td class="col-md-1">{{ $latebook->status }}</td>
             </tr>
             <tr>
-                <form method="POST" action="{{ route('lateBooks.store') }}">
+                <form method="POST" action="{{ route('lateBook.store') }}">
                     @csrf
                     <td class="col-md-2">
                         <input type="hidden" name="book_id" value="{{ $latebook->book_id }}" />
