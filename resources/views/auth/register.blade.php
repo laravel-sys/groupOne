@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="height: 65vh;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -73,5 +73,8 @@
             </div>
         </div>
     </div>
+</div>
+<div style="position: absolute; bottom: 0px; right: 0; left: 0;">
+    @include('layouts.footer')
 </div>
 @endsection

@@ -1,16 +1,30 @@
 @extends('layouts.app')
 @section('content')
-<div class="col-lg-8 m-auto">
-    <h1>{{$book->Title}}</h1>
-    <h2>Author</h2>
-    <p>{{$book->Author}}</p>
-    <a class="btn btn-primary" href="{{route('books.index')}}">Go Back</a>
-    <a class="btn btn-primary" href="/books/{{$book->id}}/edit">Edit Book</a>
-    <form method="POST" action="/books/{{$book->id}}">
-        @csrf
-        @method('DELETE')
-        <input type="submit" class="btn btn-danger form-group mt-3" value="Delete Book" />
-    </form>
+    <div class="col-lg-8 m-auto">
+        <h1>{{ $book->title }}</h1>
+        <h2>Author</h2>
+        <p>{{ $book->author }}</p>
+        <a class="btn btn-primary mb-3" href="{{ route('index') }}">Go Back</a>
 
-</div>
+        <form method="POST" action="{{ route('reservations.store') }}">
+            @csrf
+            <input type="hidden" name="book_id" value="{{ $book->id }}" />
+            <button type="submit" class="btn btn-primary mb-5">Reserve</button>
+        </form>
+
+        @if (\Session::has('success') && \Session::get('success') === true)
+            <div class="alert alert-success">
+                <ul>
+                    <li>Please checkout your book within 24 hours</li>
+                </ul>
+            </div>
+        @elseif (\Session::has('success'))
+            <div class="alert alert-danger">
+                <ul>
+                    <li>This book currently with another user</li>
+                </ul>
+            </div>
+        @endif
+    </div>
+
 @endsection
