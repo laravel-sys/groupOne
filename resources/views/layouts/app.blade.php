@@ -78,6 +78,11 @@
                                 Bookings
                             </a>
                         </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('indexAdminMessages') }}">
+                                Messages
+                            </a>
+                        </ul>
                     @endif
                     @if (Auth::check() && Auth::user()->name != 'admin')
                         <ul class="navbar-nav ml-5">
@@ -88,6 +93,11 @@
                         <ul class="navbar-nav">
                             <a class="navbar-brand hoverdNav" href="{{ route('checkout') }}">
                                 Checkedout Books
+                            </a>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('getUserReservations') }}">
+                                Reservations List
                             </a>
                         </ul>
                         {{-- <div class="dropdown">

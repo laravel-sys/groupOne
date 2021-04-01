@@ -27,15 +27,19 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [BooksController::class, 'index'])->name('index');
 
-Route::resource('contacts', ContactsController::class);
+
 Route::get('/reservations/returnBook', [ReservationsController::class, 'returnBook'])->name('returnBook');
 Route::get('/reservations/checkout', [ReservationsController::class, 'getUserCheckedOut'])->name('checkout');
+Route::get('/reservations/getUserReservations', [ReservationsController::class, 'getUserReservations'])->name('getUserReservations');
 Route::get('/reservations/history', [ReservationsController::class, 'getReturnedBooks'])->name('history');
 
 Route::get('/roomsBooking/indexAdmin', [RoomBookingsController::class, 'indexAdmin'])->name('indexAdmin');
 
+Route::get('/contacts/indexAdminMessages', [ContactsController::class, 'indexAdminMessages'])->name('indexAdminMessages');
+
 Route::resource('reservations', ReservationsController::class);
 Route::resource('roomsBooking', RoomBookingsController::class);
+Route::resource('contacts', ContactsController::class);
 Route::resource('books', BooksController::class);
 
 

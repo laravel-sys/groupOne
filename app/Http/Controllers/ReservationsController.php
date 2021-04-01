@@ -65,6 +65,20 @@ class ReservationsController extends Controller
         return view('reservation.history', ['history' => $history]);
     }
 
+    public function getUserReservations()
+    {
+        $reservationsList = DB::table('reservations')
+            ->join('users', 'users.id', '=', 'reservations.user_id')
+            ->join('books', 'books.id', '=', 'reservations.book_id')
+
+            ->select('books.*', 'reservations.*')
+            ->where('reservations.user_id', '=', Auth::user()->id)
+            ->where('reservations.status', '=', 'requested')
+            ->get();
+
+        return view('reservation.reservationsList', ['reservationsList' => $reservationsList]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
