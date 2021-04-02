@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLateBooksTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateLateBooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('late_books', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('book_id');
-            $table->timestamp('endDate')->nullable();
-            $table->integer('fees');
-            $table->string('status');
+            $table->unsignedBigInteger('wishlist_id')->nullable;
+            $table->unsignedBigInteger('reservation_id')->nullable;
+            $table->text('status');
+            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
+            $table->foreign('wishlist_id')->references('id')->on('wishlists')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -31,6 +32,6 @@ class CreateLateBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('late_books');
+        Schema::dropIfExists('notifications');
     }
 }

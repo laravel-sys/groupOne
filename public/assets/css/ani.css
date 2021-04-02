@@ -192,9 +192,9 @@ body{
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(251, 255, 0);
   }
-.hoverdNav{transition: all 0.5s;}
+.hoverdNav{transition: all 0.3s;}
 .hoverdNav:hover{
     color: purple;
-    transform: scale(1.1);
+    transform: scale(1.05);
     border-bottom: 2px solid purple;
 }

@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class lateBooks extends Model
+class Notification extends Model
 {
-    public $timestamps = false;
+
     use HasFactory;
     public function user(){
-        return $this->belongsTo(User::class);
+        return$this->belongsTo(User::class);
     }
+    public $timestamps = false;
+
 }
