@@ -11,7 +11,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-   
+
 
     /**
      * Show the application dashboard.
@@ -20,6 +20,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // return view('home');
+        return redirect()->route('books.index');
     }
 }
