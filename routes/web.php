@@ -8,6 +8,8 @@ use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\RoomBookingsController;
 use App\Http\Controllers\WishlistsController;
 use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\RoomsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +46,8 @@ Route::resource('reservations', ReservationsController::class);
 Route::resource('roomsBooking', RoomBookingsController::class);
 Route::resource('contacts', ContactsController::class);
 Route::resource('books', BooksController::class);
+Route::resource('rooms', RoomsController::class);
+
 Route::get('/wishlists/wishlists', [WishlistsController::class, 'index'])->name('wishlists');
 
 Route::resource('wishlists', WishlistsController::class);

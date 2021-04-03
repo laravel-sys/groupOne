@@ -83,6 +83,11 @@
                                 Messages
                             </a>
                         </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('rooms.index') }}">
+                                Rooms
+                            </a>
+                        </ul>
                     @endif
                     @if (Auth::check() && Auth::user()->name != 'admin')
                         <ul class="navbar-nav ml-5">
