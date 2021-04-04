@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 @section('content')
     <div class="row justify-content-md-center">
@@ -70,76 +69,44 @@
         </div>
     </form>
 
-    {{-- @foreach ($books as $item)
-                <div class="card mb-3">
-                    <h2>{{ $item->id }}</h2>
-        <div class="card mb-3">
-            <h2>{{ $item->id }}</h2>
-        </div>
-    @endforeach --}}
     <br>
     <div class="row container m-auto">
-        {{-- <div class="col-sm-4 mb-3">
-            <div class="card">
-                <img class="card-img-top"
-                    src="https://images.theconversation.com/files/331930/original/file-20200501-42918-1tyr8tx.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
-                    alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="/books/1" class="btn btn-primary">Details</a>
-                </div>
-            @endforeach --}}
-    <br>
-    <div class="row container m-auto">
-        {{-- <div class="col-sm-4 mb-3">
+        <br>
+        <div class="row container m-auto">
+            @foreach ($books as $item)
+                <div class="col-sm-4 mb-3">
                     <div class="card">
-                        <img class="card-img-top"
-                            src="https://images.theconversation.com/files/331930/original/file-20200501-42918-1tyr8tx.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
-                            alt="Card image cap">
+                        <img class="card-img-top" src="{{ $item->img }}" alt="Card image cap" style="height: 400px">
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="/books/1" class="btn btn-primary">Details</a>
+                            <h5 class="card-title">{{ $item->title }}</h5>
+                            <p class="card-text">{{ $item->author }}</p>
+                            <div class="row justify-content-md-start">
+                                <div class="col col-lg-2 mr-5">
+                                    <a href="/books/{{ $item->id }}" class="btn btn-primary mb-2">Details</a>
+                                </div>
+                                <div class="col col-lg-2 mr-5">
+                                    <form method="POST" action="{{ route('reservations.store') }}">
+                                        @csrf
+                                        <input type="hidden" name="book_id" value="{{ $item->id }}" />
+                                        <button type="submit" class="btn btn-success mb-5">Reserve</button>
+                                    </form>
+                                </div>
+                                <div class="col col-lg-2">
+                                    <form method="POST" action="{{ route('wishlists.store') }}">
+                                        @csrf
+                                        <input name="book_id" value="{{ $item->id }}" hidden />
+                                        <button type="submit" class="btn btn-success mb-5">wishlist</button>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-                </div> --}}
-        @foreach ($books as $item)
-            <div class="col-sm-4 mb-3">
-                <div class="card">
-                    <img class="card-img-top" src="{{ $item->img }}" alt="Card image cap" style="height: 400px">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $item->title }}</h5>
-                        <p class="card-text">{{ $item->author }}</p>
-                        <div class="row justify-content-md-start">
-                            <div class="col col-lg-2 mr-5">
-                                <a href="/books/{{ $item->id }}" class="btn btn-primary mb-2">Details</a>
-                            </div>
-                            <div class="col col-lg-2 mr-5">
-                                <form method="POST" action="{{ route('reservations.store') }}">
-                                    @csrf
-                                    <input type="hidden" name="book_id" value="{{ $item->id }}" />
-                                    <button type="submit" class="btn btn-success mb-5">Reserve</button>
-                                </form>
-                            </div>
-                            <div class="col col-lg-2">
-                                <form method="POST" action="{{ route('wishlists.store') }}">
-                                    @csrf
-                                    <input name="book_id" value="{{ $item->id }}" hidden />
-                                    <button type="submit" class="btn btn-success mb-5">wishlist</button>
-                                </form>
-                            </div>
-                        </div>
-
-
-
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
 
+        </div>
     </div>
-
 
     <div style="position: absolute; right: 0; left: 0;">
         @include('layouts.footer')
