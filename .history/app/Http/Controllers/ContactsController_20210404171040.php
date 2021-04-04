@@ -89,7 +89,7 @@ class ContactsController extends Controller
      */
     public function edit(Contact $contact)
     {
-        return view('ContactForm.edit', ['contact' => $contact]);
+        return view('edit', ['contact' => $contact]);
     }
 
     /**
@@ -126,6 +126,7 @@ class ContactsController extends Controller
      */
     public function destroy(Contact $contact)
     {
-       //
+        // $contact->delete();
+        // return redirect(route('contacts.index'));
     }
 }

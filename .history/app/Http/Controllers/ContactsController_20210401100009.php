@@ -10,7 +10,13 @@ use Illuminate\Support\Facades\DB;
 
 class ContactsController extends Controller
 {
-   
+    // public function __construct()
+    // {
+    //     $this->middleware('auth' ,['except' => [
+    //         'index', 'create', 'store'
+    //     ]]);
+    //     //$this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -21,7 +27,7 @@ class ContactsController extends Controller
     {
         // $user=Auth::user();
         // return view('index',['contacts'=>$user->contacts]);
-        return view('ContactForm.index');
+        return view('index');
     }
 
     public function indexAdminMessages()
@@ -41,7 +47,7 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        return view('ContactForm.create');
+        return view('create');
     }
 
     /**
@@ -78,7 +84,7 @@ class ContactsController extends Controller
      */
     public function show(Contact $contact)
     {
-        return view('ContactForm.show', ['contact' => $contact]);
+        return view('show', ['contact' => $contact]);
     }
 
     /**
@@ -89,7 +95,7 @@ class ContactsController extends Controller
      */
     public function edit(Contact $contact)
     {
-        return view('ContactForm.edit', ['contact' => $contact]);
+        return view('edit', ['contact' => $contact]);
     }
 
     /**
@@ -126,6 +132,7 @@ class ContactsController extends Controller
      */
     public function destroy(Contact $contact)
     {
-       //
+        // $contact->delete();
+        // return redirect(route('contacts.index'));
     }
 }
