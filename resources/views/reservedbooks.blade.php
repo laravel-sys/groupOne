@@ -29,24 +29,13 @@
                                         <td class="col-md-1">{{ $reservation->user_id }}</td>
 
                                         <td class="col-md-1">{{ $reservation->book_id }}</td>
-                                        <!-- <td class="col-md-2" >{{ $reservation->startDate }}</td>
-         <td class="col-md-2">{{ $reservation->endDate }}</td>
-         <td class="col-md-2"><select name="status" value="{{ $reservation->status }}">
-
-         <option value="accept">Accept</option>
-         <option value="decline">Decline</option> -->
-                                        <!-- </select>
-            </td>
-            <td class="col-md-2"> <input  name="comment"  />
-            </td> -->
+                                     
 
 
                                         <td class="col-md-2">
 
                                             <input type="hidden" name="book_id" value="{{ $reservation->book_id }}" />
-                                            <!-- <input type="hidden" name="startdate" value="{{ $reservation->startDate }}" />
-        <input type="hidden" name="enddate" value="{{ $reservation->endDate }}" /> -->
-
+                                 
 
                                             <input type="hidden" name="user_id" value="{{ $reservation->user_id }}" />
                                             <input type="hidden" name="status" value="checkout" />
@@ -68,4 +57,4 @@
         @include('layouts.footer')
     </div>
     {{-- </div> --}}
-@endsection
+@endsection,

@@ -125,8 +125,6 @@
                             <div class="col col-lg-2">
                             <form method="POST" action="{{ route('wishlists.store') }}">
                                  @csrf
-
-                        
                                   <input name="book_id" value="{{ $item->id }}" hidden/>
                                  <button type="submit"  class="btn btn-success mb-5">wishlist</button>
                              </form>
