@@ -20,11 +20,11 @@
         </div>
        
 
-    <div class="row">
-        <div class="form-group comment">
-            <textarea name="comment" class="form-control" rows="4" cols="110" placeholder="Your Comment..." form="form"></textarea>
-            <a class="btn btn-primary btn-sm btn-block">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
-        </div>
+<div class="row">
+    <div class="form-group comment">
+        <textarea name="comment" class="form-control" rows="4" cols="110" placeholder="Your Comment..." form="form"></textarea>
+        <a class="btn btn-primary btn-sm btn-block">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
+    </div>
     
         <div class="rankwithcomment">
         {!! Form::open(['route'=>['bookRstore'],'method'=>'post', 'class' => 'rating' , 'id' =>'form']) !!}
@@ -163,7 +163,7 @@
     </div>
   </div>
 </div>
-    <div style="position: absolute; right: 0px; left: 0px;">
-            @include('layouts.footer')
+<div style="position: absolute; right: 0px; left: 0px;">
+        @include('layouts.footer')
     </div>
 @endsection

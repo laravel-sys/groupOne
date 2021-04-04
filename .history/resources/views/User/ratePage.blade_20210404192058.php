@@ -20,62 +20,62 @@
         </div>
        
 
-    <div class="row">
-        <div class="form-group comment">
-            <textarea name="comment" class="form-control" rows="4" cols="110" placeholder="Your Comment..." form="form"></textarea>
-            <a class="btn btn-primary btn-sm btn-block">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
-        </div>
-    
-        <div class="rankwithcomment">
-        {!! Form::open(['route'=>['bookRstore'],'method'=>'post', 'class' => 'rating' , 'id' =>'form']) !!}
-        {{ Form::hidden('id', $book->id) }}
-            <label>
-            {!! Form::radio('rate', '1') !!}
-            <span class="icon">★</span>
-            </label>
-            <label>
-            {!! Form::radio('rate', '2') !!}
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            </label>
-            <label>
-            {!! Form::radio('rate', '3') !!}
-                @for($i=0; $i<3; $i++)
-                <span class="icon">★</span>
-                @endfor
-            </label>
-            <label>
-            {!! Form::radio('rate', '4') !!}
-                @for($i=0; $i<4; $i++)
-                <span class="icon">★</span>
-                @endfor
-            </label>
-            <label>
-            {!! Form::radio('rate', '5') !!}
-                @for($i=0; $i<5 ; $i++)
-                <span class="icon">★</span>
-                @endfor
-            </label>
-            {!! Form::close() !!}
-            </div>
-        </div>
-        </div>  
+<div class="row">
+    <div class="form-group comment">
+        <textarea name="comment" class="form-control" rows="4" cols="110" placeholder="Your Comment..." form="form"></textarea>
+        <a class="btn btn-primary btn-sm btn-block">{!! Form::submit('Comment',['form'=>'form','class' => 'btn btn-primary']); !!}</a>
     </div>
-    <div>
-    @if(Session::has('message'))
-        <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('message') }}</p>
-    @endif
-
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    
+    <div class="rankwithcomment">
+      {!! Form::open(['route'=>['bookRstore'],'method'=>'post', 'class' => 'rating' , 'id' =>'form']) !!}
+      {{ Form::hidden('id', $book->id) }}
+        <label>
+          {!! Form::radio('rate', '1') !!}
+          <span class="icon">★</span>
+        </label>
+        <label>
+          {!! Form::radio('rate', '2') !!}
+          <span class="icon">★</span>
+          <span class="icon">★</span>
+        </label>
+        <label>
+          {!! Form::radio('rate', '3') !!}
+            @for($i=0; $i<3; $i++)
+              <span class="icon">★</span>
+            @endfor
+        </label>
+        <label>
+          {!! Form::radio('rate', '4') !!}
+            @for($i=0; $i<4; $i++)
+              <span class="icon">★</span>
+            @endfor
+        </label>
+        <label>
+          {!! Form::radio('rate', '5') !!}
+            @for($i=0; $i<5 ; $i++)
+              <span class="icon">★</span>
+            @endfor
+        </label>
+        {!! Form::close() !!}
         </div>
+      </div>
+    </div>  
+</div>
+<div>
+@if(Session::has('message'))
+      <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('message') }}</p>
+  @endif
+
+  @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+</div>
 
         <div class="row">
         @foreach ($book->rate as $comment)
@@ -163,7 +163,7 @@
     </div>
   </div>
 </div>
-    <div style="position: absolute; right: 0px; left: 0px;">
-            @include('layouts.footer')
+<div style="position: absolute; right: 0px; left: 0px;">
+        @include('layouts.footer')
     </div>
 @endsection

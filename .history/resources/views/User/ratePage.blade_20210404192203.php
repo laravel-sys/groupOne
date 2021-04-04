@@ -165,5 +165,5 @@
 </div>
     <div style="position: absolute; right: 0px; left: 0px;">
             @include('layouts.footer')
-    </div>
+        </div>
 @endsection
