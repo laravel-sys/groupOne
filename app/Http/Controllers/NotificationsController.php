@@ -27,7 +27,7 @@ class NotificationsController extends Controller
 
     {
         $this->store();
-     $notifications=DB::table('notifications')->where('user_id','=', Auth::user()->id)->get();
+     $notifications=DB::table('notifications')->where('user_id','=', Auth::user()->id)->where('status','=','unread')->get();
        
      return ($notifications);
     }
@@ -80,7 +80,7 @@ class NotificationsController extends Controller
                     $notification= new Notification();
                     $notification->user_id = Auth::user()->id;
                     $notification->status = "unread";
-                    $notification->url='/reservations/history';
+                    $notification->url='/reservations/checkout';
                     $notification->reservation_id=$reservation->id;
                     $notification->message="please return $book->title";
                     $notification->save();

@@ -19,8 +19,8 @@ class CreateNotificationsTable extends Migration
             $table->unsignedBigInteger('wishlist_id')->nullable();
             $table->unsignedBigInteger('reservation_id')->nullable();
             $table->unsignedBigInteger('contact_id')->nullable();
-            $table->text('message')->nullable();
-            $table->text('url')->nullable();
+            $table->text('message');
+            $table->text('url');
 
             $table->text('status');
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
