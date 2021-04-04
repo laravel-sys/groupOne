@@ -32,12 +32,12 @@
             <button type="submit" class="btn btn-primary mb-5">Reserve</button>
         </form>
 
-        <form method="POST" action="{{ route('rates.index') }}">
+        <form method="POST" action="{{ route('rates.store') }}">
             @csrf
             <input type="hidden" name="book_id" value="{{ $book->id }}" />
             <button type="submit" class="btn btn-primary mb-5">Rate</button>
         </form>
-
+        
         @if (\Session::has('success') && \Session::get('success') === true)
             <div class="alert alert-success">
                 <ul>
