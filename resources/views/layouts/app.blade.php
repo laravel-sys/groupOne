@@ -218,7 +218,7 @@
             url: '/Notification', 
             method: "GET"
                  }).done(function( msg ) {
-                     if(msg.length>0){
+                     if(msg[0].status=="unread"){
 
                      notnumber =`
                      <img width="30px" src="https://spng.subpng.com/20180404/bee/kisspng-kerala-computer-icons-bell-alarm-device-alarm-cloc-alarm-5ac4800fc346b2.3331892915228272797999.jpg"/>
@@ -246,9 +246,15 @@
                  }).done(function( msg ) {
                      msg.map(
                          m=> {
+                             if(m.status=="unread"){
                              notlist+=` <li>
+                             <a class="dropdown-item" style="color:red; " href="${m.url}">${m.message}</a>
+                                </li>`}
+                                else{
+                                    notlist+=` <li>
                              <a class="dropdown-item" href="${m.url}">${m.message}</a>
                                 </li>`
+                                }
                          })
                      $("#notify").html(notlist)
                      msg.map(

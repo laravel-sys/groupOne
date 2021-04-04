@@ -27,7 +27,7 @@ class NotificationsController extends Controller
 
     {
         $this->store();
-     $notifications=DB::table('notifications')->where('user_id','=', Auth::user()->id)->where('status','=','unread')->get();
+     $notifications=DB::table('notifications')->where('user_id','=', Auth::user()->id)->orderBy('id', 'desc')->take(5)->get();
        
      return ($notifications);
     }
