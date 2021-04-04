@@ -88,6 +88,21 @@
     {{-- @foreach ($books as $item)
                 <div class="card mb-3">
                     <h2>{{ $item->id }}</h2>
+        <div class="card mb-3">
+            <h2>{{ $item->id }}</h2>
+        </div>
+    @endforeach --}}
+    <br>
+    <div class="row container m-auto">
+        {{-- <div class="col-sm-4 mb-3">
+            <div class="card">
+                <img class="card-img-top"
+                    src="https://images.theconversation.com/files/331930/original/file-20200501-42918-1tyr8tx.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1200&h=1200.0&fit=crop"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="/books/1" class="btn btn-primary">Details</a>
                 </div>
             @endforeach --}}
     <br>
@@ -137,6 +152,7 @@
                 </div>
             </div>
         @endforeach
+
     </div>
 
 
