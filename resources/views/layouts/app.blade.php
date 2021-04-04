@@ -29,10 +29,14 @@
 
     <link href="{{ URL::to('/assets/css/ani.css') }}" rel="stylesheet">
     <link href="{{ URL::to('/assets/css/ani.css') }}" rel="stylesheet">
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
-<body>
+<body onload="getnotiCount()">
     <div id="app">
         <ul class="circles">
             <li></li>
@@ -78,6 +82,22 @@
                                 Bookings
                             </a>
                         </ul>
+                        <li class="btn dropdown hoverdNav" id="notificitionNumber">
+                             <a class="btn dropdown-toggle" style="font-size: large" href="#" id="navbarScrollingDropdown1" role="button"
+                                data-toggle="dropdown" aria-expanded="false" onclick="getData()">
+                                <img width="30px" src="https://thumbs.dreamstime.com/b/notification-bell-icon-notification-bell-icon-black-editable-vector-illustration-isolated-white-background-123045644.jpg"/>
+                            </a>
+                        <ul class="navbar-nav">
+                        
+                                 <ul class="dropdown-menu" id="notify" aria-labelledby="navbarScrollingDropdown1" >
+                                
+                                  
+                                   </ul>
+                                   </ul>
+                             
+                       
+
+                    </li>
                     @endif
                     @if (Auth::check() && Auth::user()->name != 'admin')
                         <ul class="navbar-nav ml-5">
@@ -120,14 +140,22 @@
                                  Wishlist
                             </a>
                         </ul>
-                        <!-- <ul class="navbar-nav">
-                        <a class="navbar-brand hoverdNav" href="{{ route('Notification') }}">
-                                 
-                        Notification
-                        </a>
+                        <li class="btn dropdown hoverdNav" id="notificitionNumber">
+                             <a class="btn dropdown-toggle" style="font-size: large" href="#" id="navbarScrollingDropdown1" role="button"
+                                data-toggle="dropdown" aria-expanded="false" onclick="getData()">
+                                <img width="30px" src="https://thumbs.dreamstime.com/b/notification-bell-icon-notification-bell-icon-black-editable-vector-illustration-isolated-white-background-123045644.jpg"/>
+                            </a>
+                        <ul class="navbar-nav">
+                        
+                                 <ul class="dropdown-menu" id="notify" aria-labelledby="navbarScrollingDropdown1" >
+                                
+                                  
+                                   </ul>
+                                   </ul>
+                             
+                       
 
-                        </ul> -->
-
+                    </li>
                     @endif
                     <ul class="navbar-nav mr-auto hoverdNav">
                         <a class="navbar-brand" href="{{ url('/contacts') }}">
@@ -158,6 +186,7 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
+
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                              document.getElementById('logout-form').submit();">
@@ -180,13 +209,78 @@
             @yield('content')
         </main>
     </div>
+    
+    <script>  
+    function getnotiCount(){
+                let notnumber=``
+        $.ajax({
+           
+            url: '/Notification', 
+            method: "GET"
+                 }).done(function( msg ) {
+                     if(msg[0].status=="unread"){
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+                     notnumber =`
+                     <img width="30px" src="https://spng.subpng.com/20180404/bee/kisspng-kerala-computer-icons-bell-alarm-device-alarm-cloc-alarm-5ac4800fc346b2.3331892915228272797999.jpg"/>
+                     `}
+                     else{
+                        notnumber =`
+                     <img width="30px" src="https://thumbs.dreamstime.com/b/notification-bell-icon-notification-bell-icon-black-editable-vector-illustration-isolated-white-background-123045644.jpg"/>
+                     `}
+                    
+                 $("#navbarScrollingDropdown1").html(notnumber) 
+                 })
+               
+
+    }
+    function getData(){
+        $.ajaxSetup({
+      headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+        let notlist=``
+            $.ajax({
+            url: '/Notification', 
+            method: "GET"
+                 }).done(function( msg ) {
+                     msg.map(
+                         m=> {
+                             if(m.status=="unread"){
+                             notlist+=` <li>
+                             <a class="dropdown-item" style="color:red; " href="${m.url}">${m.message}</a>
+                                </li>`}
+                                else{
+                                    notlist+=` <li>
+                             <a class="dropdown-item" href="${m.url}">${m.message}</a>
+                                </li>`
+                                }
+                         })
+                     $("#notify").html(notlist)
+                     msg.map(
+                         m=> {
+                     $.ajax({
+                         url: '/Notification/update', 
+                         method: "POST", 
+                          data:{'id': m.id}
+                 
+                         })
+                          let  notnumber =`
+                           <img width="30px" src="https://thumbs.dreamstime.com/b/notification-bell-icon-notification-bell-icon-black-editable-vector-illustration-isolated-white-background-123045644.jpg"/>
+                              `
+                    
+                             $("#navbarScrollingDropdown1").html(notnumber)      
+                         
+                         })
+
+                 })
+                    
+                }
+             </script>
+    
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
-    </script>
+    </script> 
 
 </body>
 

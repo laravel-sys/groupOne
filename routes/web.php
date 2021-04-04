@@ -43,6 +43,7 @@ Route::resource('books', BooksController::class);
 Route::get('/wishlists/wishlists', [WishlistsController::class, 'index'])->name('wishlists');
 
 Route::resource('wishlists', WishlistsController::class);
-Route::resource('Notification', NotificationsController::class);
+Route::resource('Notifications', NotificationsController::class);
 
-Route::get('/Notification/notifications', [NotificationsController::class, 'index'])->name('Notification');
+Route::get('/Notification', [NotificationsController::class, 'index'])->name('Notification');
+Route::post('/Notification/update', [NotificationsController::class, 'changeStatus'])->name('Notificationupdate');

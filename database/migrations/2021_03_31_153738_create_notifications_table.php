@@ -16,12 +16,18 @@ class CreateNotificationsTable extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('wishlist_id')->nullable;
-            $table->unsignedBigInteger('reservation_id')->nullable;
+            $table->unsignedBigInteger('wishlist_id')->nullable();
+            $table->unsignedBigInteger('reservation_id')->nullable();
+            $table->unsignedBigInteger('contact_id')->nullable();
+            $table->text('message');
+            $table->text('url');
+
             $table->text('status');
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
             $table->foreign('wishlist_id')->references('id')->on('wishlists')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
+
         });
     }
 
