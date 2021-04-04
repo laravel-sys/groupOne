@@ -21,7 +21,7 @@ class RateController extends Controller
      */
     public function index()
     {
-        return "OK";
+        return ""
     }
 
     /**

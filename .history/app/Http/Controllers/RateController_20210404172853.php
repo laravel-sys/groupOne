@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-use App\Book;
-use App\User;
-
+use Illuminate\Support\Facades\
 use App\Models\Rates;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RateController extends Controller
 {
@@ -21,7 +17,7 @@ class RateController extends Controller
      */
     public function index()
     {
-        return "OK";
+        //
     }
 
     /**

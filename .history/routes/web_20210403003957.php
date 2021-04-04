@@ -9,7 +9,6 @@ use App\Http\Controllers\RoomBookingsController;
 use App\Http\Controllers\WishlistsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RoomsController;
-use App\Http\Controllers\RateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -55,5 +54,3 @@ Route::resource('wishlists', WishlistsController::class);
 Route::resource('Notification', NotificationsController::class);
 
 Route::get('/Notification/notifications', [NotificationsController::class, 'index'])->name('Notification');
-
-Route::resource('rates', RateController::class);

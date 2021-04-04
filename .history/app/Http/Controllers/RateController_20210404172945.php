@@ -10,7 +10,7 @@ use App\User;
 
 use App\Models\Rates;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class RateController extends Controller
 {
@@ -21,7 +21,7 @@ class RateController extends Controller
      */
     public function index()
     {
-        return "OK";
+        //
     }
 
     /**

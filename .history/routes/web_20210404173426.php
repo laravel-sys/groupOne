@@ -9,7 +9,7 @@ use App\Http\Controllers\RoomBookingsController;
 use App\Http\Controllers\WishlistsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RoomsController;
-use App\Http\Controllers\RateController;
+use App\Http\Controllers\RatesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
