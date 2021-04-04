@@ -32,7 +32,11 @@
             <button type="submit" class="btn btn-primary mb-5">Reserve</button>
         </form>
 
-      
+        <form method="POST" action="{{ route('rates.ratePage') }}">
+            @csrf
+            <input type="hidden" name="book_id" value="{{ $book->id }}" />
+            <button type="submit" class="btn btn-primary mb-5">Rate</button>
+        </form>
 
         @if (\Session::has('success') && \Session::get('success') === true)
             <div class="alert alert-success">
@@ -47,15 +51,6 @@
                 </ul>
             </div>
         @endif
-
-        <form method="POST" action="{{ route('rates.index') }}">
-            @csrf
-            <input type="hidden" name="book_id" value="{{ $book->id }}" />
-            <button type="submit" class="btn btn-primary mb-5">Rate</button>
-
-            
-        </form>
-
     {{-- <div class="col-lg-8 m-auto">
         <h1>{{ $book->title }}</h1>
         <h2>Author</h2>

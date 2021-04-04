@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="container">
-    <h2>Feel free to contact us</h2>
-
+        <p>Feel free to contact us</p>
         <form class="col-lg-8" method="POST" action="{{ route('contacts.store') }}">
 
             @csrf
