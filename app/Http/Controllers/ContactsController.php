@@ -6,6 +6,7 @@ use App\Models\Contact;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ContactsController extends Controller
 {
@@ -26,7 +27,17 @@ class ContactsController extends Controller
     {
         // $user=Auth::user();
         // return view('index',['contacts'=>$user->contacts]);
-        return view ('index');
+        return view('index');
+    }
+
+    public function indexAdminMessages()
+    {
+        // dd('hi');
+        if (Auth::user()->name != "admin") {
+            return redirect('books');
+        }
+        $messages =  DB::table('contacts')->get();
+        return view('contacts.indexAdminMessages', ['messages' => $messages]);
     }
 
     /**
@@ -84,7 +95,7 @@ class ContactsController extends Controller
      */
     public function edit(Contact $contact)
     {
-        return view('edit' , ['contact' => $contact]);
+        return view('edit', ['contact' => $contact]);
     }
 
     /**

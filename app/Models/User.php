@@ -12,7 +12,11 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
     public function reservations()
     {
-    return $this->hasMany(Reservation::class);
+        return $this->hasMany(Reservation::class);
+    }
+    public function Wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
     }
     /**
      * The attributes that are mass assignable.
@@ -44,7 +48,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function contacts(){ 
+    public function contacts()
+    {
         return $this->hasMany(Contact::class);
+    }
+
+    public function room_bookings()
+    {
+        return $this->hasMany(RoomBookings::class);
     }
 }
