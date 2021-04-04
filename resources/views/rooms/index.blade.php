@@ -16,9 +16,12 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $c = 1;
+                @endphp
                 @foreach ($bookings as $data)
                     <tr>
-                        <th scope="row">{{ $data->id }}</th>
+                        <th scope="row">{{ $c }}</th>
                         <td>{{ $data->when_date }}</td>
                         <td>{{ $data->when_time }}</td>
                         <td>{{ $data->room_id }}</td>
@@ -27,16 +30,19 @@
                         </td>
                         <td class='d-flex'>
                             @if ($data->status == 'booked')
-                            <form method="POST" action="/roomsBooking/{{ $data->id}}" class="mr-1">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="book_id" value="{{ $data->id }}" />
-                                <button type="submit" class="btn btn-danger" value="cancel" name="to">Cancel</button>
-                            </form>
-                            {{-- <a class="btn btn-primary" href="/roomsBooking/{{ $data->id }}/edit">Edit</a> --}}
+                                <form method="POST" action="/roomsBooking/{{ $data->id }}" class="mr-1">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="book_id" value="{{ $data->id }}" />
+                                    <button type="submit" class="btn btn-danger" value="cancel" name="to">Cancel</button>
+                                </form>
+                                {{-- <a class="btn btn-primary" href="/roomsBooking/{{ $data->id }}/edit">Edit</a> --}}
                             @endif
                         </td>
                     </tr>
+                    @php
+                        $c += 1;
+                    @endphp
                 @endforeach
             </tbody>
         </table>

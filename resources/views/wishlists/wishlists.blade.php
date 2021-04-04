@@ -28,14 +28,14 @@
 
                         </tr>
                         @foreach ($wishlistitems as $wishlists)
-                            
-                             
+
+
                                 <tr style="border-bottom: 1px solid black;" class="row">
-                                    
-                                        
+
+
 
                                         <td class="col-md-2">{{ $wishlists->id }}</td>
-                                       
+
                                         <td class="col-md-2">{{ $wishlists->title }}</td>
                                         <td class="col-md-2">
                                             <form  method="POST" action="{{ route('reservations.store') }}">
@@ -45,20 +45,20 @@
 
                                             </form>
                                             </td>
-                                            
+
                                         <form method="POST" action='/wishlists/{{ $wishlists->id }}'>
                                         @csrf
                                         @method('DELETE')
 
-                                        <td class="col-md-2">          
+                                        <td class="col-md-2">
                                               <button type="submit" class="btn btn-danger mb-5">Remove</button>
                                         </td>
 
                                         </form>
-                                      
+
                                 </tr>
-                            
-       
+
+
 
                         @endforeach
                     </table>

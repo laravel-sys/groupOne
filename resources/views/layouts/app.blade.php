@@ -117,8 +117,8 @@
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </div> --}}
-                        <li class="btn dropdown hoverdNav">
-                            <a class="btn dropdown-toggle" style="font-size: large" href="#" id="navbarScrollingDropdown" role="button"
+                        <li class="btn dropdown">
+                            <a class="btn dropdown-toggle" style="font-size: larger" href="#" id="navbarScrollingDropdown" role="button"
                                 data-toggle="dropdown" aria-expanded="false">
                                 Book Room
                             </a>

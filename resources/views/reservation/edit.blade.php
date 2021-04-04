@@ -12,16 +12,15 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Return Book for User {{ $user }}</h5>
+                        <hr>
                         <h6 class="card-title">Loan Date: {{ explode(' ', $reservation->startDate)[0] }}</h6>
                         <h6 class="card-title mb-5">Loan Status: {{ $reservation->status }}</h6>
-
+                        <hr>
+                        <h6 class="card-title mb-5">Book Title: {{ $book->title }}</h6>
+                        <img src="{{ $book->img }}" class="imgReturn" alt="book cover">
                         <form class="col-lg-8" method="POST" action="/reservations/{{ $reservation->id }}">
                             @method('PUT')
                             @csrf
-                            {{-- <h6 class="card-title">Returned Date:</h6>
-                            <input type="date" class="mb-2" value="{{date('Y-m-d')}}" name='endDate' /> --}}
-                            {{-- <h6 class="card-title">Add Comment</h6>
-                            <textarea class="form-control mb-2" name="comment" placeholder="Leave Comment..."  id="comment" ></textarea> --}}
                             <input type="text" name='from' value="edit" hidden>
                             <button type="submit" class="btn btn-primary mt-4">Return Book</button>
                         </form>
@@ -32,7 +31,7 @@
         </div>
     </div>
 
-    <div style="position: absolute; bottom: 0px; right: 0; left: 0;">
+    <div style="position: absolute; right: 0; left: 0;">
         @include('layouts.footer')
     </div>
 @endsection
