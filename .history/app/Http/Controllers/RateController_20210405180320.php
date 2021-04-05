@@ -96,14 +96,17 @@ class RateController extends Controller
     //     return redirect()->route('bookrate' , $book_id);
 
     request()->validate([
-        'rate' => 'required',
-        'comment' => 'required'
+        'name' => 'required',
+        'email' => 'required|email',
+        'phone' => 'required',
+        'message' => 'required',
     ]);
 
     $rate = new Rate();
-    $rate->name = request('rate');
-    $rate->email = request('comment');
-
+    $rate->name = request('name');
+    $rate->email = request('email');
+    $rate->phone = request('phone');
+    $rate->message = request('message');
     // $contact->user_id = Auth::user()->id;
 
     $contact->save();

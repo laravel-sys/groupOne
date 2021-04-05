@@ -57,57 +57,43 @@ class RateController extends Controller
      */
     public function store(Request $request)
     {
-    //     $validateData = $request->validate([
-    //         'comment' => 'required_without:rate|max:250',
-    //     ],
-    // [
-    //     'comment.required_without' => 
-    //     'please leave a comment or rate our book. "Appreciate if you do both :) "'
-    // ]);
-    //     $book_id = $request->id;
-    //     $comment = $request->comment;
-    //     $table_rate = DB::table('rates')->where('Book_id', $book_id)->where('user_id', Auth::id())
-    //     ->where('user_id', Auth::id())->where('comment', null)->exists();
-
-    //     if($request->rate ==0 && $table_rate->exists() == true) {
-    //         $rate = $table_rate->get()[0]->rate;
-    //     }
-    //     else{
-    //         $rate = $request->rate;
-    //     }
-
-    //     if($table_comment == false && $table_rate->exists() == false || $table_comment == true 
-    //     && $comment != '' || $table_comment == false && $comment != ''){
-    //         \App\User::find(Auth::id())->rates()
-    //         ->attach([$book_id => ['rate'=>$rate ,
-    //                                 'comment' => $comment,
-    //                                 'created_at => Carbon::now()']]);
-    //     }
-
-    //     if($table_rate->exists() == true ){
-    //         $rating = $table_rate->update(array('rate'=> $rate));
-    //     }
-
-    //     if($table_comment==true && $comment!= '' ){
-    //         DB::table('rates')->where('Book_id', $book_id)->
-    //         where('user_id', Auth::id())->where('comment', null)->delete();
-    //     }
-
-    //     return redirect()->route('bookrate' , $book_id);
-
-    request()->validate([
-        'rate' => 'required',
-        'comment' => 'required'
+        $validateData = $request->validate([
+            'comment' => 'required_without:rate|max:250',
+        ],
+    [
+        'comment.required_without' => 
+        'please leave a comment or rate our book. "Appreciate if you do both :) "'
     ]);
+        $book_id = $request->id;
+        $comment = $request->comment;
+        $table_rate = DB::table('rates')->where('Book_id', $book_id)->where('user_id', Auth::id())
+        ->where('user_id', Auth::id())->where('comment', null)->exists();
 
-    $rate = new Rate();
-    $rate->name = request('rate');
-    $rate->email = request('comment');
+        if($request->rate ==0 && $table_rate->exists() == true) {
+            $rate = $table_rate->get()[0]->rate;
+        }
+        else{
+            $rate = $request->rate;
+        }
 
-    // $contact->user_id = Auth::user()->id;
+        if($table_comment == false && $table_rate->exists() == false || $table_comment == true 
+        && $comment != '' || $table_comment == false && $comment != ''){
+            \App\User::find(Auth::id())->rates()
+            ->attach([$book_id => ['rate'=>$rate ,
+                                    'comment' => $comment,
+                                    'created_at => Carbon::now()']]);
+        }
 
-    $contact->save();
-    return redirect(route('rates.index'));
+        if($table_rate->exists() == true ){
+            $rating = $table_rate->update(array('rate'=> $rate));
+        }
+
+        if($table_comment==true && $comment!= '' ){
+            DB::table('rates')->where('Book_id', $book_id)->
+            where('user_id', Auth::id())->where('comment', null)->delete();
+        }
+
+        return redirect()->route('bookrate' , $book_id);
     }
 
     /**

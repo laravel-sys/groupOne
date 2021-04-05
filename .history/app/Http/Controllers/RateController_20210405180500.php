@@ -97,7 +97,7 @@ class RateController extends Controller
 
     request()->validate([
         'rate' => 'required',
-        'comment' => 'required'
+        'comment' => 'required,
     ]);
 
     $rate = new Rate();
