@@ -38,6 +38,7 @@ class ContactsController extends Controller
         }
         $messages =  DB::table('contacts')->get();
         return view('contacts.indexAdminMessages', ['messages' => $messages]);
+
     }
 
     /**
