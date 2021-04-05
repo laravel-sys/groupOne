@@ -13,7 +13,7 @@
                         <strong>Author</strong>: {{ $book->author }}
                     </p>
                     <p class="card-text">
-                        <strong>Number of Pages</strong>: {{ $book->author }}
+                        <strong>Number of Pages</strong>: {{ $book->pageCount }}
                     </p>
                     <p class="card-text">
                         <strong>Description</strong>: {{ $book->description }}

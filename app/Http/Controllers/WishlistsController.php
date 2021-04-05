@@ -25,10 +25,8 @@ class WishlistsController extends Controller
      */
     public function index()
     {
-            $wishlistitems = DB::table('wishlists')->where('user_id','=', Auth::user()->id)->join('books','wishlists.book_id', '=','books.id')->select('wishlists.id','wishlists.book_id','title','wishlists.user_id')->get();
-   
-      return view('wishlists.wishlists', ['wishlistitems' => $wishlistitems]);
-
+        $wishlistitems = DB::table('wishlists')->where('user_id', '=', Auth::user()->id)->join('books', 'wishlists.book_id', '=', 'books.id')->select('wishlists.id', 'wishlists.book_id', 'title', 'wishlists.user_id')->get();
+        return view('wishlists.wishlists', ['wishlistitems' => $wishlistitems]);
     }
 
     /**
@@ -48,16 +46,16 @@ class WishlistsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { $wishlistcount=Wishlist::where('book_id', '=', request('book_id'))->where('user_id', '=',Auth::user()->id )->get();
-        if(count($wishlistcount)==0){
+    {
+        $wishlistcount = Wishlist::where('book_id', '=', request('book_id'))->where('user_id', '=', Auth::user()->id)->get();
+        if (count($wishlistcount) == 0) {
             $wishlist = new Wishlist();
             $wishlist->book_id = request('book_id');
             $wishlist->user_id = Auth::user()->id;
             $wishlist->save();
         }
-        
-        return redirect('reservations');
 
+        return redirect('reservations');
     }
 
     /**
