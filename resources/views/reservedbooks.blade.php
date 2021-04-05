@@ -39,5 +39,4 @@
     <div style="position: absolute; right: 0px; left: 0px; margin-top:20%">
         @include('layouts.footer')
     </div>
-
 @endsection
