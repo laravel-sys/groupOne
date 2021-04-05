@@ -92,7 +92,7 @@
                                 Rooms
                             </a>
                         </ul>
-                        <li class="btn dropdown hoverdNav" id="notificitionNumber">
+                        <li class="btn dropdown" id="notificitionNumber">
                             <a class="btn dropdown-toggle" style="font-size: large" href="#"
                                 id="navbarScrollingDropdown1" role="button" data-toggle="dropdown" aria-expanded="false"
                                 onclick="getData()">
@@ -135,8 +135,11 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
                                 <li><a class="dropdown-item" href="{{ route('roomsBooking.index') }}">My Bookings</a>
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('roomsBooking.create') }}">Make New
-                                        Book</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('roomsBooking.create') }}">Make New
+                                        Book
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
@@ -146,7 +149,7 @@
                             </a>
                         </ul>
 
-                        <li class="btn dropdown hoverdNav" id="notificitionNumber">
+                        <li class="btn dropdown" id="notificitionNumber">
                             <a class="btn dropdown-toggle" style="font-size: large" href="#"
                                 id="navbarScrollingDropdown1" role="button" data-toggle="dropdown" aria-expanded="false"
                                 onclick="getData()">
@@ -154,10 +157,7 @@
                                     src="https://thumbs.dreamstime.com/b/notification-bell-icon-notification-bell-icon-black-editable-vector-illustration-isolated-white-background-123045644.jpg" />
                             </a>
                             <ul class="navbar-nav">
-
                                 <ul class="dropdown-menu" id="notify" aria-labelledby="navbarScrollingDropdown1">
-
-
                                 </ul>
                             </ul>
 
@@ -196,8 +196,9 @@
 
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                     document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -222,7 +223,6 @@
         function getnotiCount() {
             let notnumber = ``
             $.ajax({
-
                 url: '/Notification',
                 method: "GET"
             }).done(function(msg) {
@@ -239,8 +239,6 @@
 
                 $("#navbarScrollingDropdown1").html(notnumber)
             })
-
-
         }
 
         function getData() {
