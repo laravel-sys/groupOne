@@ -29,20 +29,20 @@
 
     <link href="{{ URL::to('/assets/css/ani.css') }}" rel="stylesheet">
     <link href="{{ URL::to('/assets/css/ani.css') }}" rel="stylesheet">
-    <<<<<<< HEAD <!--Jquery-->
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
 
 <body onload="getnotiCount()">
-    =======
+
 
     </head>
 
     <body>
-        >>>>>>> origin/Ahmed
+
         <div id="app">
             <ul class="circles">
                 <li></li>
@@ -215,7 +215,7 @@
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                 document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
 

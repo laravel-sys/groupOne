@@ -27,7 +27,7 @@
                         </tr>
                         @foreach ($wishlistitems as $wishlists)
                             <tr style="border-bottom: 1px solid lightgray;" class="row">
-                                <td class="col-md-2">{{ $wishlists->id }}</td>
+                                <td class="col-md-2">{{ $wishlists->book_id }}</td>
                                 <td class="col-md-2">{{ $wishlists->title }}</td>
                                 <td class="col-md-2">
                                     <form method="POST" action="{{ route('reservations.store') }}">
