@@ -78,6 +78,11 @@
                                 Bookings
                             </a>
                         </ul>
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('adminLateReturns') }}">
+                                Late Books
+                            </a>
+                        </ul>
                     @endif
                     @if (Auth::check() && Auth::user()->name != 'admin')
                         <ul class="navbar-nav ml-5">
@@ -91,6 +96,7 @@
                             </a>
                         </ul>
 
+
                         {{-- <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,8 +109,8 @@
                             </div>
                         </div> --}}
                         <li class="btn dropdown hoverdNav">
-                            <a class="btn dropdown-toggle" style="font-size: large" href="#" id="navbarScrollingDropdown" role="button"
-                                data-toggle="dropdown" aria-expanded="false">
+                            <a class="btn dropdown-toggle" style="font-size: large" href="#"
+                                id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
                                 Book Room
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
@@ -114,15 +120,19 @@
                                         Book</a></li>
                             </ul>
                         </li>
-
+                        <ul class="navbar-nav">
+                            <a class="navbar-brand hoverdNav" href="{{ route('userLateReturns') }}">
+                                Late Books
+                            </a>
+                        </ul>
                         <ul class="navbar-nav">
                             <a class="navbar-brand hoverdNav" href="{{ route('wishlists') }}">
-                                 Wishlist
+                                Wishlist
                             </a>
                         </ul>
                         <!-- <ul class="navbar-nav">
                         <a class="navbar-brand hoverdNav" href="{{ route('Notification') }}">
-                                 
+
                         Notification
                         </a>
 
@@ -160,7 +170,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
