@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class lateReturnsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of resource.
      *
      * @return \Illuminate\Http\Response
      */
