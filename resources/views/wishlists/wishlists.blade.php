@@ -8,58 +8,42 @@
                     <h1 style="margin-bottom: 10">Wishlist</h1>
                     <hr>
                     @if (\Session::has('success') && \Session::get('success') === true)
-            <div class="alert alert-success">
-                <ul>
-                    <li>Please checkout your book within 24 hours</li>
-                </ul>
-            </div>
-        @elseif (\Session::has('success'))
-            <div class="alert alert-danger">
-                <ul>
-                    <li>This book currently not available</li>
-                </ul>
-            </div>
-        @endif
+                        <div class="alert alert-success">
+                            <ul>
+                                <li>Please checkout your book within 24 hours</li>
+                            </ul>
+                        </div>
+                    @elseif (\Session::has('success'))
+                        <div class="alert alert-danger">
+                            <ul>
+                                <li>This book currently not available</li>
+                            </ul>
+                        </div>
+                    @endif
                     <table style="text-align: center">
-                        <tr style="border-bottom: 1px solid black;" class="row ">
+                        <tr style="border-bottom: 1px solid lightgray;" class="row ">
                             <th class="col-md-2"> Book id</th>
                             <th class="col-md-2"> Book name </th>
-
-
                         </tr>
                         @foreach ($wishlistitems as $wishlists)
-                            
-                             
-                                <tr style="border-bottom: 1px solid black;" class="row">
-                                    
-                                        
-
-                                        <td class="col-md-2">{{ $wishlists->id }}</td>
-                                       
-                                        <td class="col-md-2">{{ $wishlists->title }}</td>
-                                        <td class="col-md-2">
-                                            <form  method="POST" action="{{ route('reservations.store') }}">
-                                                @csrf
-                                                <input type="hidden" name="book_id" value="{{ $wishlists->book_id}}" />
-                                                <button type="submit" class="btn btn-danger mb-5">reserve</button>
-
-                                            </form>
-                                            </td>
-                                            
-                                        <form method="POST" action='/wishlists/{{ $wishlists->id }}'>
+                            <tr style="border-bottom: 1px solid lightgray;" class="row">
+                                <td class="col-md-2">{{ $wishlists->book_id }}</td>
+                                <td class="col-md-2">{{ $wishlists->title }}</td>
+                                <td class="col-md-2">
+                                    <form method="POST" action="{{ route('reservations.store') }}">
                                         @csrf
-                                        @method('DELETE')
-
-                                        <td class="col-md-2">          
-                                              <button type="submit" class="btn btn-danger mb-5">Remove</button>
-                                        </td>
-
-                                        </form>
-                                      
-                                </tr>
-                            
-       
-
+                                        <input type="hidden" name="book_id" value="{{ $wishlists->book_id }}" />
+                                        <button type="submit" class="btn btn-primary m-2">reserve</button>
+                                    </form>
+                                </td>
+                                <form method="POST" action='/wishlists/{{ $wishlists->id }}'>
+                                    @csrf
+                                    @method('DELETE')
+                                    <td class="col-md-2">
+                                        <button type="submit" class="btn btn-danger m-2">Remove</button>
+                                    </td>
+                                </form>
+                            </tr>
                         @endforeach
                     </table>
                 </div>

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class lateReturns extends Model
 {
     use HasFactory;
-    public function room_bookings()
-    {
-        return $this->hasMany(RoomBookings::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
+    public $timestamps = false;
 }

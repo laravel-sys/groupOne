@@ -96,7 +96,12 @@ class RoomsController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        if (count(DB::table('room_bookings')->where('room_id', '=', $room->id)->get()) !== 0) {
+        if (count(
+            DB::table('room_bookings')
+                ->where('room_id', '=', $room->id)
+                ->whereIn('status', ['booked'] )
+                ->get()
+        ) !== 0) {
             return redirect()->back()
                 ->with('alert', 'danger')
                 ->with('message', 'cant update it, the room is booked');
@@ -106,7 +111,6 @@ class RoomsController extends Controller
                 'location' => 'required',
                 'note' => 'required',
             ]);
-            
             $room->type = request('type');
             $room->location = request('location');
             $room->details = request('note');
@@ -126,7 +130,7 @@ class RoomsController extends Controller
      */
     public function destroy(Room $room)
     {
-        if (count(DB::table('room_bookings')->where('room_id', '=', $room->id)->get()) !== 0) {
+        if (count(DB::table('room_bookings')->where('room_id', '=', $room->id)->whereIn('status', ['booked'] )->get()) !== 0) {
             return redirect()->route('rooms.index')
                 ->with('alert', 'danger')
                 ->with('message', 'cant remove it, the room is in use');

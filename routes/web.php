@@ -11,6 +11,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\RateController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\lateReturnsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,8 +53,13 @@ Route::resource('rooms', RoomsController::class);
 Route::get('/wishlists/wishlists', [WishlistsController::class, 'index'])->name('wishlists');
 
 Route::resource('wishlists', WishlistsController::class);
-Route::resource('Notification', NotificationsController::class);
 
-Route::get('/Notification/notifications', [NotificationsController::class, 'index'])->name('Notification');
-
+Route::resource('Notifications', NotificationsController::class);
 Route::resource('rates', RateController::class);
+
+Route::get('/Notification', [NotificationsController::class, 'index'])->name('Notification');
+Route::post('/Notification/update', [NotificationsController::class, 'changeStatus'])->name('Notificationupdate');
+
+Route::get('/lateReturns/adminLateReturns', [lateReturnsController::class, 'adminLateReturns'])->name('adminLateReturns');
+Route::get('/lateReturns/userLateReturns', [lateReturnsController::class, 'userLateReturns'])->name('userLateReturns');
+Route::resource('lateReturns', lateReturnsController::class);

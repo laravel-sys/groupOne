@@ -198,3 +198,12 @@ body{
     transform: scale(1.05);
     border-bottom: 2px solid purple;
 }
+
+
+
+
+.imgReturn{
+    width: 275px;
+    height: 400px;
+    box-shadow: 5px 5px 3px rgb(158, 176, 182);
+}

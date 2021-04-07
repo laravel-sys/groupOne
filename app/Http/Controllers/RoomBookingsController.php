@@ -26,12 +26,15 @@ class RoomBookingsController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        return view('rooms.index', ['bookings' => $user->room_bookings]);
+        // $user = Auth::user();
+        $roomBookings = DB::table('room_bookings')
+            ->where('user_id', '=', Auth::user()->id)
+            ->orderBy('when_date', 'DESC')->get();
+        return view('rooms.index', ['bookings' => $roomBookings]);
     }
     public function indexAdmin()
     {
-        $roomBookings = DB::table('room_bookings')->get();
+        $roomBookings = DB::table('room_bookings')->orderBy('status')->get();
         return view('rooms.indexAdmin', ['bookings' => $roomBookings]);
     }
 

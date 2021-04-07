@@ -17,9 +17,12 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $c = 1;
+                @endphp
                 @foreach ($bookings as $data)
                     <tr>
-                        <th scope="row">{{ $data->id }}</th>
+                        <th scope="row">{{ $c }}</th>
                         <th scope="row">{{ $data->user_id }}</th>
                         @php
                             $date_one = $data->when_date; //string variable
@@ -50,6 +53,9 @@
                             @endif
                         </td>
                     </tr>
+                    @php
+                        $c += 1;
+                    @endphp
                 @endforeach
             </tbody>
         </table>
